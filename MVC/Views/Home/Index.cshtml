@@ -1,8 +1,53 @@
-﻿@{
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<header class="header">
+    <nav class="nav">
+        <a href="#" class="logo">FC BARCELONA</a>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Squad</a></li>
+            <li><a href="#">Trophies</a></li>
+            <li><a href="#">Favourites</a></li>
+        </ul>
+        <p class="user">[User]</p>
+    </nav>
+</header>
+
+<main>
+    <section class="hero">
+        <p class="season">Season 2025/26</p>
+        <h1 class="club-name">FC BARCELONA</h1>
+
+        <div class="stat">
+            <p class="stat-number">26</p>
+            <p class="stat-text">Players in squad</p>
+        </div>
+
+        <div class="stat">
+            <p class="stat-number">78</p>
+            <p class="stat-text">Trophies won</p>
+        </div>
+    </section>
+
+    <section class="trophies">
+        <h2>Recently Won</h2>
+        <p>The three most recent trophies.</p>
+
+        <div class="trophy">
+            <h3>LaLiga 2024/25</h3>
+            <img src="" alt="LaLiga 2024/25 Pokal" />
+        </div>
+
+        <div class="trophy">
+            <h3>Copa del Rey 2024/25</h3>
+            <img src="" alt="Copa del Rey 2024/25 Pokal" />
+        </div>
+
+        <div class="trophy">
+            <h3>Supercopa de España 2025</h3>
+            <img src="" alt="Supercopa de España 2025 Pokal" />
+        </div>
+    </section>
+</main>
