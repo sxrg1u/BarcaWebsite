@@ -2,5 +2,14 @@
     ViewData["Title"] = "Favourites";
 }
 <main>
+    <section class="favourites">
+        <h1>Favourites</h1>
 
+        <div class="favourites-grid">
+            <a asp-controller="Home" asp-action="Squad" class="favourites-more">
+                <h3>More Players??</h3>
+                <span class="favourites-more-btn">Go to Squad &rarr;</span>
+            </a>
+        </div>
+    </section>
 </main>

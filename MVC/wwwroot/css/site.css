@@ -1,13 +1,47 @@
+/* ==========================================================
+   Typografie-Basis
+   Anton            -> grosse Display-Ueberschriften
+   Barlow Condensed -> Navigation, Fliesstext, Tabellen
+   ========================================================== */
+
+:root {
+  --font-display: "Anton", "Barlow Condensed", sans-serif;
+  --font-body: "Barlow Condensed", sans-serif;
+
+  --navy: #0a1a4d;
+  --gold: #edbb00;
+  --maroon: #7a0f3d;
+  --muted: #5a6472;
+}
+
 html {
-  font-size: 14px;
+  font-size: 16px;
   position: relative;
   min-height: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
 @media (min-width: 768px) {
   html {
-    font-size: 16px;
+    font-size: 17px;
   }
+}
+
+body {
+  margin: 0 0 72px;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.55;
+  color: #16202e;
+  background-color: #ffffff;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
@@ -23,41 +57,44 @@ html {
   text-align: start;
 }
 
+/* ===================== Header / Navigation ===================== */
+
 header {
-  background-color: #0a1a4d;
+  background-color: var(--navy);
 }
 
 header nav.nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 2rem;
+  gap: 2rem;
+  padding: 1.1rem 2rem;
 }
 
 header nav a {
-  font-family: "Barlow Condensed", sans-serif;
-  font-weight: 800;
-  font-size: 18px;
-  line-height: normal;
-  letter-spacing: 0.05em;
-  color: #edbb00;
+  font-family: var(--font-body);
   text-decoration: none;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.65rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  color: var(--gold);
 }
 
 .logo-img {
-  height: 36px;
+  height: 42px;
   width: auto;
 }
 
 header nav ul {
   display: flex;
-  gap: 2rem;
+  gap: 2.25rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -65,19 +102,20 @@ header nav ul {
 
 header nav ul li a {
   color: #ffffff;
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding-bottom: 0.2rem;
 }
 
 header nav ul li a:hover {
-  color: #ffcc00;
+  color: var(--gold);
 }
 
 header nav ul li a.active {
-    text-decoration: underline;
-    text-underline-offset: 6px;
-    color: #edbb00;
+  color: var(--gold);
+  border-bottom: 3px solid var(--gold);
 }
 
 .user {
@@ -87,40 +125,44 @@ header nav ul li a.active {
 }
 
 .user-name {
+  color: #ffffff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
   text-decoration: none;
+}
+
+.user-name:hover {
+  color: var(--gold);
 }
 
 .user-avatar {
   display: inline-block;
-  width: 32px;
-  height: 32px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  background-color: #edbb00;
+  background-color: var(--gold);
 }
 
-body {
-  margin: 0 0 60px;
-  font-family: "Barlow Condensed", sans-serif;
-  background-color: #ffffff;
-}
+/* ===================== Footer ===================== */
 
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 60px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
   padding: 0 2rem;
-  background-color: #0a1a4d;
+  background-color: var(--navy);
 }
 
 .footer p {
   margin: 0;
   color: #ffffff;
-  font-size: 0.85rem;
+  font-size: 1rem;
   letter-spacing: 0.03em;
 }
 
@@ -129,12 +171,13 @@ body {
   align-items: center;
   gap: 0.75rem;
   color: #ffffff;
-  font-size: 0.85rem;
+  font-size: 1rem;
   letter-spacing: 0.03em;
 }
 
 .footer-links a {
-  color: #edbb00;
+  color: var(--gold);
+  font-weight: 600;
   text-decoration: none;
 }
 
@@ -146,14 +189,15 @@ body {
   color: rgba(255, 255, 255, 0.4);
 }
 
-/* Hero */
+/* ===================== Hero ===================== */
+
 .hero {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 2rem;
-  padding: 3rem 2rem;
+  padding: 4rem 2rem;
   background-image: url("/images/Hauptseite/imageForTitle.png");
   background-size: cover;
   background-position: center;
@@ -161,54 +205,60 @@ body {
 }
 
 .season {
-  color: #edbb00;
+  font-family: var(--font-body);
+  color: var(--gold);
   font-weight: 700;
-  letter-spacing: 0.2em;
-  font-size: 0.9rem;
-  margin: 0 0 0.5rem;
+  letter-spacing: 0.22em;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  margin: 0 0 0.75rem;
 }
 
 .club-name {
-  font-size: 4rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
+  font-size: clamp(3.25rem, 7vw, 5.25rem);
+  line-height: 0.95;
+  text-transform: uppercase;
   margin: 0;
-  line-height: 1;
 }
 
 .hero-stats {
   display: flex;
-  gap: 3rem;
+  gap: 3.5rem;
 }
 
 .stat-number {
-  color: #edbb00;
-  font-size: 2.5rem;
-  font-weight: 800;
-  margin: 0;
+  font-family: var(--font-display);
+  color: var(--gold);
+  font-size: 3.25rem;
+  font-weight: 400;
   line-height: 1;
+  margin: 0;
 }
 
 .stat-text {
   color: #ffffff;
-  font-size: 0.9rem;
-  margin: 0.25rem 0 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin: 0.4rem 0 0;
 }
 
-/* Trophies */
+/* ===================== Startseite: Recently won ===================== */
+
 .trophies {
-  padding: 3rem 2rem;
+  padding: 4rem 2rem;
 }
 
 .trophies h2 {
-  font-weight: 800;
-  font-size: 1.75rem;
-  margin: 0 0 0.25rem;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  margin: 0 0 0.4rem;
 }
 
 .trophies > p {
-  color: #6c757d;
-  margin: 0 0 2rem;
+  color: var(--muted);
+  font-size: 1.1rem;
+  margin: 0 0 2.5rem;
 }
 
 .trophy-grid {
@@ -221,7 +271,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: 1rem;
+  gap: 1.25rem;
   padding: 2rem 1.5rem;
   min-height: 444px;
   border-radius: 1.5rem;
@@ -232,16 +282,15 @@ body {
 }
 
 .trophy-card h3 {
-  font-weight: 800;
-  font-size: 3.5rem;
-  line-height: 0.95;
+  font-size: clamp(2.75rem, 4vw, 3.9rem);
+  line-height: 0.98;
   text-transform: uppercase;
   margin: 0;
   order: -1;
 }
 
 .trophy-card h3 span {
-  color: #edbb00;
+  color: var(--gold);
 }
 
 .trophy-card img {
@@ -258,20 +307,21 @@ body {
   }
 }
 
-/* Squad */
+/* ===================== Squad ===================== */
+
 .squad {
-  padding: 3rem 2rem;
+  padding: 4rem 2rem;
 }
 
 .squad h1 {
-  font-weight: 800;
-  font-size: 2.5rem;
+  font-size: 3.25rem;
   text-transform: uppercase;
   margin: 0 0 0.5rem;
 }
 
 .squad > p {
-  color: #6c757d;
+  color: var(--muted);
+  font-size: 1.1rem;
   margin: 0 0 2rem;
 }
 
@@ -279,14 +329,14 @@ body {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.75rem 1.5rem;
+  padding: 0.85rem 1.5rem;
   margin-bottom: 1.5rem;
   border-radius: 999px;
   box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.08);
 }
 
 .squad-search-logo {
-  height: 28px;
+  height: 30px;
   width: auto;
 }
 
@@ -294,8 +344,9 @@ body {
   flex: 1;
   border: none;
   outline: none;
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 1rem;
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  font-weight: 500;
 }
 
 .squad-table-wrap {
@@ -310,19 +361,19 @@ body {
 }
 
 .squad-table th {
-  background-color: #0a1a4d;
+  background-color: var(--navy);
   color: #ffffff;
   text-align: left;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: 0.85rem;
+  letter-spacing: 0.07em;
+  font-size: 1rem;
   font-weight: 700;
-  padding: 1rem 1.5rem;
+  padding: 1.1rem 1.5rem;
 }
 
 .squad-table td {
-  padding: 0.75rem 1.5rem;
-  font-size: 0.95rem;
+  padding: 0.9rem 1.5rem;
+  font-size: 1.1rem;
 }
 
 .squad-row:nth-child(odd) {
@@ -334,7 +385,7 @@ body {
 }
 
 .squad-player-name {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .squad-col-photo {
@@ -343,87 +394,136 @@ body {
 
 .squad-avatar {
   display: inline-block;
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   background-color: #d9d9d9;
 }
 
 .squad-fav {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   color: #adb5bd;
   line-height: 1;
 }
 
-/* Trophies page */
+/* ===================== Favourites ===================== */
+
+.favourites {
+  padding: 4rem 2rem;
+}
+
+.favourites h1 {
+  font-size: 3.25rem;
+  text-transform: uppercase;
+  margin: 0 0 2rem;
+}
+
+.favourites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.favourites-more {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 260px;
+  border: 1px solid #dee2e6;
+  border-radius: 1rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.favourites-more h3 {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.favourites-more-btn {
+  display: inline-block;
+  padding: 0.6rem 1.25rem;
+  border-radius: 999px;
+  background-color: var(--maroon);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* ===================== Trophies-Seite ===================== */
+
 .trophies-page {
-  padding: 3rem 2rem;
+  padding: 4rem 2rem;
 }
 
 .trophies-page h1 {
-  font-weight: 800;
-  font-size: 2.5rem;
+  font-size: 3.25rem;
   text-transform: uppercase;
-  margin: 0 0 1.5rem;
+  margin: 0 0 1.75rem;
 }
 
 .trophies-page h2 {
-  font-weight: 800;
-  font-size: 1.1rem;
+  font-size: 1.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.02em;
   margin: 0 0 1rem;
 }
 
 .trophies-since {
-  color: #6c757d;
-  font-weight: 400;
+  font-family: var(--font-body);
+  color: var(--muted);
+  font-weight: 500;
   text-transform: none;
   letter-spacing: normal;
-  font-size: 0.9rem;
+  font-size: 1.05rem;
 }
 
 .trophy-stat-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 3rem;
 }
 
 .trophy-stat {
-  padding: 1.5rem;
+  padding: 1.75rem 1.5rem;
   border-radius: 1rem;
   color: #ffffff;
 }
 
 .trophy-stat-count {
-  color: #edbb00;
-  font-size: 2.5rem;
-  font-weight: 800;
-  margin: 0;
+  font-family: var(--font-display);
+  color: var(--gold);
+  font-size: 3.25rem;
+  font-weight: 400;
   line-height: 1;
+  margin: 0;
 }
 
 .trophy-stat-name {
   text-transform: uppercase;
   font-weight: 700;
-  letter-spacing: 0.03em;
-  font-size: 0.9rem;
-  margin: 0.5rem 0 0.15rem;
+  letter-spacing: 0.05em;
+  font-size: 1.1rem;
+  margin: 0.6rem 0 0.2rem;
 }
 
 .trophy-stat-sub {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.75);
   margin: 0;
 }
 
 .trophy-stat--navy {
-  background-color: #0a1a4d;
+  background-color: var(--navy);
 }
 
 .trophy-stat--maroon {
-  background-color: #7a0f3d;
+  background-color: var(--maroon);
 }
 
 .trophy-stat--blue {
@@ -446,19 +546,19 @@ body {
 }
 
 .trophies-table th {
-  background-color: #0a1a4d;
+  background-color: var(--navy);
   color: #ffffff;
   text-align: left;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-size: 0.85rem;
+  letter-spacing: 0.07em;
+  font-size: 1rem;
   font-weight: 700;
-  padding: 1rem 1.5rem;
+  padding: 1.1rem 1.5rem;
 }
 
 .trophies-table td {
-  padding: 0.85rem 1.5rem;
-  font-size: 0.95rem;
+  padding: 0.95rem 1.5rem;
+  font-size: 1.1rem;
 }
 
 .trophies-table tr:nth-child(odd) {
@@ -470,12 +570,22 @@ body {
 }
 
 .trophies-competition {
-  font-weight: 600;
+  font-weight: 700;
 }
+
+/* ===================== Responsive ===================== */
 
 @media (max-width: 900px) {
   .trophy-stat-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-}
 
+  header nav.nav {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  header nav ul {
+    gap: 1.5rem;
+  }
+}
