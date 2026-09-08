@@ -33,7 +33,15 @@
     </header>
     <main role="main">
         @RenderBody()
-    </main>
+    </main>+
+    <footer class="footer">
+        <p>&copy; @DateTime.Now.Year FC Barcelona.</p>
+        <div class="footer-links">
+            <a href="https://www.fcbarcelona.com" target="_blank" rel="noopener">fcbarcelona.com</a>
+            <span class="footer-divider">|</span>
+            <span>Made by Sergiu Bolohan</span>
+        </div>
+    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
