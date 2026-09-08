@@ -10,4 +10,8 @@
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
+  <Target Name="KillRunningApp" BeforeTargets="Build" Condition="'$(OS)' == 'Windows_NT'">
+    <Exec Command="taskkill /F /IM MVC.exe" ContinueOnError="true" IgnoreExitCode="true" />
+  </Target>
+
 </Project>

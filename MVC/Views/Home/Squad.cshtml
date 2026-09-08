@@ -1,0 +1,38 @@
+@model List<MVC.Models.Player>
+@{
+    ViewData["Title"] = "Squad";
+}
+<main>
+    <section class="squad">
+        <h1>Squad</h1>
+        <p>@Model.Count players. Select a row to open the player detail view.</p>
+
+        <div class="squad-table-wrap">
+            <table class="squad-table">
+                <thead>
+                    <tr>
+                        <th class="squad-col-photo"></th>
+                        <th>No.</th>
+                        <th>Player</th>
+                        <th>Country</th>
+                        <th>Position</th>
+                        <th>Age</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var player in Model)
+                    {
+                        <tr class="squad-row">
+                            <td class="squad-col-photo"><span class="squad-avatar"></span></td>
+                            <td>@player.Number</td>
+                            <td class="squad-player-name">@player.Name</td>
+                            <td>@player.Country</td>
+                            <td>@player.Position</td>
+                            <td>@player.Age</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>

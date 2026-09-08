@@ -27,7 +27,7 @@ header {
   background-color: #0a1a4d;
 }
 
-header nav {
+header nav.nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -75,8 +75,9 @@ header nav ul li a:hover {
 }
 
 header nav ul li a.active {
-  text-decoration: underline;
-  text-underline-offset: 6px;
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    color: #edbb00;
 }
 
 .user {
@@ -86,7 +87,7 @@ header nav ul li a.active {
 }
 
 .user-name {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .user-avatar {
@@ -98,11 +99,7 @@ header nav ul li a.active {
 }
 
 body {
-<<<<<<< HEAD
   margin: 0 0 60px;
-=======
-  margin: 0;
->>>>>>> a649bed0864060d6dafcc484834e58e753855704
   font-family: "Barlow Condensed", sans-serif;
   background-color: #ffffff;
 }
@@ -115,7 +112,7 @@ body {
   flex-wrap: wrap;
   gap: 2rem;
   padding: 3rem 2rem;
-  background-image: url("/images/imageForTitle.png");
+  background-image: url("/images/Hauptseite/imageForTitle.png");
   background-size: cover;
   background-position: center;
   color: #ffffff;
@@ -181,17 +178,12 @@ body {
 .trophy-card {
   display: flex;
   flex-direction: column;
-<<<<<<< HEAD
-  justify-content: flex-start;
-  padding: 2.5rem 1.5rem;
-=======
   justify-content: flex-end;
   gap: 1rem;
   padding: 2rem 1.5rem;
->>>>>>> a649bed0864060d6dafcc484834e58e753855704
   min-height: 444px;
   border-radius: 1.5rem;
-  background-image: url("/images/imageForCards.png");
+  background-image: url("/images/Hauptseite/imageForCards.png");
   background-size: cover;
   background-position: center;
   color: #ffffff;
@@ -199,26 +191,17 @@ body {
 
 .trophy-card h3 {
   font-weight: 800;
-<<<<<<< HEAD
-  font-size: 2.75rem;
-  line-height: 1;
-  text-transform: uppercase;
-  margin: 0;
-=======
-  font-size: 1.75rem;
+  font-size: 3.5rem;
+  line-height: 0.95;
   text-transform: uppercase;
   margin: 0;
   order: -1;
->>>>>>> a649bed0864060d6dafcc484834e58e753855704
 }
 
 .trophy-card h3 span {
-  display: block;
   color: #edbb00;
 }
 
-<<<<<<< HEAD
-=======
 .trophy-card img {
   width: 100%;
   height: 160px;
@@ -227,9 +210,77 @@ body {
   background-color: rgba(0, 0, 0, 0.15);
 }
 
->>>>>>> a649bed0864060d6dafcc484834e58e753855704
 @media (max-width: 900px) {
   .trophy-grid {
     grid-template-columns: 1fr;
   }
 }
+
+/* Squad */
+.squad {
+  padding: 3rem 2rem;
+}
+
+.squad h1 {
+  font-weight: 800;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem;
+}
+
+.squad > p {
+  color: #6c757d;
+  margin: 0 0 2rem;
+}
+
+.squad-table-wrap {
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+.squad-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.squad-table th {
+  background-color: #0a1a4d;
+  color: #ffffff;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 1rem 1.5rem;
+}
+
+.squad-table td {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+}
+
+.squad-row:nth-child(odd) {
+  background-color: #f4f5f7;
+}
+
+.squad-row:hover {
+  background-color: #eceef2;
+}
+
+.squad-player-name {
+  font-weight: 600;
+}
+
+.squad-col-photo {
+  width: 64px;
+}
+
+.squad-avatar {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #d9d9d9;
+}
+

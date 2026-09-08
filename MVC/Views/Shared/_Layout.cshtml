@@ -13,6 +13,24 @@
     <link rel="stylesheet" href="~/MVC.styles.css" asp-append-version="true" />
 </head>
 <body>
+    <header class="header">
+        <nav class="nav">
+            <a href="~/" class="logo">
+                <img src="~/images/logobarca.png" alt="FC Barcelona Logo" class="logo-img" />
+                FC BARCELONA
+            </a>
+            <ul class="nav-links">
+                <li><a asp-controller="Home" asp-action="Index" class="@(ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")">Home</a></li>
+                <li><a asp-controller="Home" asp-action="Squad" class="@(ViewContext.RouteData.Values["action"]?.ToString() == "Squad" ? "active" : "")">Squad</a></li>
+                <li><a asp-controller="Home" asp-action="Trophies" class="@(ViewContext.RouteData.Values["action"]?.ToString() == "Trophies" ? "active" : "")">Trophies</a></li>
+                <li><a asp-controller="Home" asp-action="Favourites" class="@(ViewContext.RouteData.Values["action"]?.ToString() == "Favourites" ? "active" : "")">Favourites</a></li>
+            </ul>
+            <div class="user">
+                <a href="#" class="user-name">S. Bolohan</a>
+                <span class="user-avatar"></span>
+            </div>
+        </nav>
+    </header>
     <main role="main">
         @RenderBody()
     </main>
