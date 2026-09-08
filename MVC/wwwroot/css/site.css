@@ -313,3 +313,127 @@ body {
   line-height: 1;
 }
 
+/* Trophies page */
+.trophies-page {
+  padding: 3rem 2rem;
+}
+
+.trophies-page h1 {
+  font-weight: 800;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  margin: 0 0 1.5rem;
+}
+
+.trophies-page h2 {
+  font-weight: 800;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 1rem;
+}
+
+.trophies-since {
+  color: #6c757d;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 0.9rem;
+}
+
+.trophy-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.trophy-stat {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  color: #ffffff;
+}
+
+.trophy-stat-count {
+  color: #edbb00;
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1;
+}
+
+.trophy-stat-name {
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  font-size: 0.9rem;
+  margin: 0.5rem 0 0.15rem;
+}
+
+.trophy-stat-sub {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+.trophy-stat--navy {
+  background-color: #0a1a4d;
+}
+
+.trophy-stat--maroon {
+  background-color: #7a0f3d;
+}
+
+.trophy-stat--blue {
+  background-color: #1d4fa3;
+}
+
+.trophy-stat--slate {
+  background-color: #3a4a63;
+}
+
+.trophies-table-wrap {
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+.trophies-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.trophies-table th {
+  background-color: #0a1a4d;
+  color: #ffffff;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 1rem 1.5rem;
+}
+
+.trophies-table td {
+  padding: 0.85rem 1.5rem;
+  font-size: 0.95rem;
+}
+
+.trophies-table tr:nth-child(odd) {
+  background-color: #f4f5f7;
+}
+
+.trophies-table tr:hover {
+  background-color: #eceef2;
+}
+
+.trophies-competition {
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .trophy-stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+

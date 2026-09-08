@@ -49,7 +49,46 @@ namespace MVC.Controllers
 
         public IActionResult Trophies()
         {
-            return View();
+            var model = new TrophiesViewModel
+            {
+                Stats = new List<TrophyStat>
+                {
+                    new() { Count = 28, Name = "LaLiga",           LastWon = "last won 2024/25" },
+                    new() { Count = 32, Name = "Copa del Rey",     LastWon = "last won 2025" },
+                    new() { Count = 5,  Name = "Champions League", LastWon = "last won 2015" },
+                    new() { Count = 13, Name = "Other Trophies",   LastWon = "super cups, UEFA" },
+                },
+                Records = new List<TrophyRecord>
+                {
+                    new() { Year = 2025, Competition = "LaLiga",               Coach = "Hansi Flick",   Category = "Domestic" },
+                    new() { Year = 2025, Competition = "Copa del Rey",         Coach = "Hansi Flick",   Category = "Domestic" },
+                    new() { Year = 2025, Competition = "Supercopa de España",  Coach = "Hansi Flick",   Category = "Domestic" },
+                    new() { Year = 2023, Competition = "LaLiga",               Coach = "Xavi",          Category = "Domestic" },
+                    new() { Year = 2023, Competition = "Supercopa de España",  Coach = "Xavi",          Category = "Domestic" },
+                    new() { Year = 2019, Competition = "LaLiga",               Coach = "Ernesto Valverde", Category = "Domestic" },
+                    new() { Year = 2018, Competition = "LaLiga",               Coach = "Ernesto Valverde", Category = "Domestic" },
+                    new() { Year = 2018, Competition = "Copa del Rey",         Coach = "Ernesto Valverde", Category = "Domestic" },
+                    new() { Year = 2017, Competition = "Copa del Rey",         Coach = "Luis Enrique",  Category = "Domestic" },
+                    new() { Year = 2016, Competition = "Copa del Rey",         Coach = "Luis Enrique",  Category = "Domestic" },
+                    new() { Year = 2016, Competition = "Supercopa de España",  Coach = "Luis Enrique",  Category = "Domestic" },
+                    new() { Year = 2015, Competition = "LaLiga",               Coach = "Luis Enrique",  Category = "Domestic" },
+                    new() { Year = 2015, Competition = "Copa del Rey",         Coach = "Luis Enrique",  Category = "Domestic" },
+                    new() { Year = 2015, Competition = "UEFA Champions League", Coach = "Luis Enrique", Category = "Europe" },
+                    new() { Year = 2015, Competition = "UEFA Super Cup",       Coach = "Luis Enrique",  Category = "Europe" },
+                    new() { Year = 2015, Competition = "FIFA Club World Cup",  Coach = "Luis Enrique",  Category = "World" },
+                    new() { Year = 2013, Competition = "LaLiga",               Coach = "Tito Vilanova", Category = "Domestic" },
+                    new() { Year = 2012, Competition = "Copa del Rey",         Coach = "Pep Guardiola", Category = "Domestic" },
+                    new() { Year = 2011, Competition = "LaLiga",               Coach = "Pep Guardiola", Category = "Domestic" },
+                    new() { Year = 2011, Competition = "UEFA Champions League", Coach = "Pep Guardiola", Category = "Europe" },
+                    new() { Year = 2011, Competition = "Supercopa de España",  Coach = "Pep Guardiola", Category = "Domestic" },
+                    new() { Year = 2010, Competition = "LaLiga",               Coach = "Pep Guardiola", Category = "Domestic" },
+                    new() { Year = 2010, Competition = "Supercopa de España",  Coach = "Pep Guardiola", Category = "Domestic" },
+                    new() { Year = 2010, Competition = "UEFA Super Cup",       Coach = "Pep Guardiola", Category = "Europe" },
+                    new() { Year = 2010, Competition = "FIFA Club World Cup",  Coach = "Pep Guardiola", Category = "World" },
+                },
+            };
+
+            return View(model);
         }
 
         public IActionResult Favourites()

@@ -1,6 +1,48 @@
+@model MVC.Models.TrophiesViewModel
 @{
     ViewData["Title"] = "Trophies";
 }
 <main>
+    <section class="trophies-page">
+        <h1>Trophies</h1>
 
+        <div class="trophy-stat-grid">
+            @{ var colors = new[] { "navy", "maroon", "blue", "slate" }; }
+            @for (int i = 0; i < Model.Stats.Count; i++)
+            {
+                var stat = Model.Stats[i];
+                <div class="trophy-stat trophy-stat--@colors[i % colors.Length]">
+                    <p class="trophy-stat-count">@stat.Count</p>
+                    <p class="trophy-stat-name">@stat.Name</p>
+                    <p class="trophy-stat-sub">@stat.LastWon</p>
+                </div>
+            }
+        </div>
+
+        <h2>All Trophies <span class="trophies-since">since 2010</span></h2>
+
+        <div class="trophies-table-wrap">
+            <table class="trophies-table">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Competition</th>
+                        <th>Coach</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var record in Model.Records)
+                    {
+                        <tr>
+                            <td>@record.Year</td>
+                            <td class="trophies-competition">@record.Competition</td>
+                            <td>@record.Coach</td>
+                            <td>@record.Category</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
 </main>
