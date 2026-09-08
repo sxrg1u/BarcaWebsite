@@ -233,6 +233,29 @@ body {
   margin: 0 0 2rem;
 }
 
+.squad-search {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 999px;
+  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+.squad-search-logo {
+  height: 28px;
+  width: auto;
+}
+
+.squad-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 1rem;
+}
+
 .squad-table-wrap {
   border-radius: 1rem;
   overflow: hidden;
@@ -282,5 +305,11 @@ body {
   height: 36px;
   border-radius: 50%;
   background-color: #d9d9d9;
+}
+
+.squad-fav {
+  font-size: 1.25rem;
+  color: #adb5bd;
+  line-height: 1;
 }
 

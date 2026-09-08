@@ -5,7 +5,12 @@
 <main>
     <section class="squad">
         <h1>Squad</h1>
-        <p>@Model.Count players. Select a row to open the player detail view.</p>
+        <p>@Model.Count players. Select a row to open the player detail view or fav a player.</p>
+
+        <div class="squad-search">
+            <img src="~/images/logobarca.png" alt="FC Barcelona Logo" class="squad-search-logo" />
+            <input type="text" class="squad-search-input" placeholder="Search player by name ..." />
+        </div>
 
         <div class="squad-table-wrap">
             <table class="squad-table">
@@ -17,6 +22,7 @@
                         <th>Country</th>
                         <th>Position</th>
                         <th>Age</th>
+                        <th>Fav</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,6 +35,7 @@
                             <td>@player.Country</td>
                             <td>@player.Position</td>
                             <td>@player.Age</td>
+                            <td><span class="squad-fav">&#9825;</span></td>
                         </tr>
                     }
                 </tbody>
