@@ -1,5 +1,7 @@
 html {
   font-size: 14px;
+  position: relative;
+  min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -12,15 +14,6 @@ html {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
-}
-
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
   color: var(--bs-secondary-color);
   text-align: end;
@@ -28,4 +21,187 @@ body {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+
+header {
+  background-color: #0a1a4d;
+}
+
+header nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+}
+
+header nav a {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: normal;
+  letter-spacing: 0.05em;
+  color: #edbb00;
+  text-decoration: none;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo-img {
+  height: 36px;
+  width: auto;
+}
+
+header nav ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+header nav ul li a {
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+header nav ul li a:hover {
+  color: #ffcc00;
+}
+
+header nav ul li a.active {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.user-name {
+  text-decoration: underline;
+}
+
+.user-avatar {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #edbb00;
+}
+
+body {
+  margin: 0 0 60px;
+  font-family: "Barlow Condensed", sans-serif;
+  background-color: #ffffff;
+}
+
+/* Hero */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 3rem 2rem;
+  background-image: url("/images/imageForTitle.png");
+  background-size: cover;
+  background-position: center;
+  color: #ffffff;
+}
+
+.season {
+  color: #edbb00;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  font-size: 0.9rem;
+  margin: 0 0 0.5rem;
+}
+
+.club-name {
+  font-size: 4rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  margin: 0;
+  line-height: 1;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 3rem;
+}
+
+.stat-number {
+  color: #edbb00;
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1;
+}
+
+.stat-text {
+  color: #ffffff;
+  font-size: 0.9rem;
+  margin: 0.25rem 0 0;
+}
+
+/* Trophies */
+.trophies {
+  padding: 3rem 2rem;
+}
+
+.trophies h2 {
+  font-weight: 800;
+  font-size: 1.75rem;
+  margin: 0 0 0.25rem;
+}
+
+.trophies > p {
+  color: #6c757d;
+  margin: 0 0 2rem;
+}
+
+.trophy-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.trophy-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 2.5rem 1.5rem;
+  min-height: 444px;
+  border-radius: 1.5rem;
+  background-image: url("/images/imageForCards.png");
+  background-size: cover;
+  background-position: center;
+  color: #ffffff;
+}
+
+.trophy-card h3 {
+  font-weight: 800;
+  font-size: 2.75rem;
+  line-height: 1;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.trophy-card h3 span {
+  display: block;
+  color: #edbb00;
+}
+
+@media (max-width: 900px) {
+  .trophy-grid {
+    grid-template-columns: 1fr;
+  }
 }
