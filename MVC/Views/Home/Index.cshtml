@@ -4,30 +4,40 @@
 
 <header class="header">
     <nav class="nav">
-        <a href="#" class="logo">FC BARCELONA</a>
+        <a href="~/" class="logo">
+            <img src="~/images/logobarca.png" alt="FC Barcelona Logo" class="logo-img" />
+            FC BARCELONA
+        </a>
         <ul class="nav-links">
-            <li><a href="#">Home</a></li>
+            <li><a href="#" class="active">Home</a></li>
             <li><a href="#">Squad</a></li>
             <li><a href="#">Trophies</a></li>
             <li><a href="#">Favourites</a></li>
         </ul>
-        <p class="user">[User]</p>
+        <div class="user">
+            <a href="#" class="user-name">S. Bolohan</a>
+            <span class="user-avatar"></span>
+        </div>
     </nav>
 </header>
 
 <main>
     <section class="hero">
-        <p class="season">Season 2025/26</p>
-        <h1 class="club-name">FC BARCELONA</h1>
-
-        <div class="stat">
-            <p class="stat-number">26</p>
-            <p class="stat-text">Players in squad</p>
+        <div class="hero-info">
+            <p class="season">Season 2025/26</p>
+            <h1 class="club-name">FC BARCELONA</h1>
         </div>
 
-        <div class="stat">
-            <p class="stat-number">78</p>
-            <p class="stat-text">Trophies won</p>
+        <div class="hero-stats">
+            <div class="stat">
+                <p class="stat-number">26</p>
+                <p class="stat-text">Players in squad</p>
+            </div>
+
+            <div class="stat">
+                <p class="stat-number">78</p>
+                <p class="stat-text">Trophies won</p>
+            </div>
         </div>
     </section>
 
@@ -35,19 +45,21 @@
         <h2>Recently Won</h2>
         <p>The three most recent trophies.</p>
 
-        <div class="trophy">
-            <h3>LaLiga 2024/25</h3>
-            <img src="" alt="LaLiga 2024/25 Pokal" />
-        </div>
+        <div class="trophy-grid">
+            <div class="trophy-card">
+                <h3>LaLiga <span>2024/25</span></h3>
+                <img src="" alt="LaLiga 2024/25 Pokal" />
+            </div>
 
-        <div class="trophy">
-            <h3>Copa del Rey 2024/25</h3>
-            <img src="" alt="Copa del Rey 2024/25 Pokal" />
-        </div>
+            <div class="trophy-card">
+                <h3>Copa del Rey <span>2024/25</span></h3>
+                <img src="" alt="Copa del Rey 2024/25 Pokal" />
+            </div>
 
-        <div class="trophy">
-            <h3>Supercopa de España 2025</h3>
-            <img src="" alt="Supercopa de España 2025 Pokal" />
+            <div class="trophy-card">
+                <h3>Supercopa de España <span>2025</span></h3>
+                <img src="" alt="Supercopa de España 2025 Pokal" />
+            </div>
         </div>
     </section>
 </main>
