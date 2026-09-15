@@ -37,8 +37,14 @@ namespace MVC.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [Route("Home/Error/{statusCode?}")]
+        public IActionResult Error(int? statusCode = null)
         {
+            if (statusCode == 404)
+            {
+                return View("NotFound");
+            }
+
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 

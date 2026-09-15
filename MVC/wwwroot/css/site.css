@@ -1,8 +1,56 @@
-/* 
+/*
    Typografie-Basis
    Anton            -> grosse Display-Ueberschriften
    Barlow Condensed -> Navigation, Fliesstext, Tabellen
     */
+
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/Anton-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/BarlowCondensed-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/BarlowCondensed-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/BarlowCondensed-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/BarlowCondensed-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/fonts/BarlowCondensed-ExtraBold.woff2') format('woff2');
+}
 
 :root {
   --font-display: "Anton", "Barlow Condensed", sans-serif;
@@ -691,4 +739,67 @@ header nav ul li a.active {
   color: var(--maroon);
   font-size: 0.9rem;
   font-weight: 600;
+}
+
+/*  404  */
+
+.notfound-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  background-color: var(--navy);
+  background-image: radial-gradient(circle at top right, rgba(237, 187, 0, 0.15), transparent 55%),
+    radial-gradient(circle at bottom left, rgba(122, 15, 61, 0.35), transparent 55%);
+}
+
+.notfound-card {
+  width: 100%;
+  max-width: 480px;
+  margin: 2rem;
+  padding: 3rem 2.5rem;
+  border-radius: 1.25rem;
+  text-align: center;
+  background-color: #ffffff;
+  box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.35);
+}
+
+.notfound-code {
+  font-family: var(--font-display);
+  font-size: 6rem;
+  line-height: 1;
+  margin: 0;
+  color: var(--gold);
+  -webkit-text-stroke: 2px var(--navy);
+}
+
+.notfound-card h1 {
+  font-size: 2rem;
+  color: var(--navy);
+  text-transform: uppercase;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.notfound-text {
+  margin: 0 0 2rem;
+  font-size: 1.05rem;
+  color: var(--muted);
+}
+
+.notfound-btn {
+  display: inline-block;
+  padding: 0.85rem 2rem;
+  border-radius: 999px;
+  background-color: var(--maroon);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+}
+
+.notfound-btn:hover {
+  background-color: #931451;
 }

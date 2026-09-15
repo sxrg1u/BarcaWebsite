@@ -1,0 +1,23 @@
+@{
+    ViewData["Title"] = "Seite nicht gefunden";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>404 - Seite nicht gefunden - FC Barcelona</title>
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="notfound-page">
+  <img src="/images/logobarca.png" alt="FC Barcelona Logo" class="login-logo" />
+
+  <div class="notfound-card">
+    <p class="notfound-code">404</p>
+    <h1>Off the pitch</h1>
+    <p class="notfound-text">Diese Seite existiert nicht oder wurde verschoben.</p>
+    <a asp-controller="Home" asp-action="Index" class="notfound-btn">Zur&uuml;ck zur Startseite</a>
+  </div>
+</body>
+</html>
