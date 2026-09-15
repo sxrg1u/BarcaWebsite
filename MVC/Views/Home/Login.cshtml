@@ -1,0 +1,37 @@
+@{
+    ViewData["Title"] = "Sign in";
+    Layout = null;
+}
+<html lang="de">
+<head>
+<title>Sign in - FC Barcelona</title>
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="login-page">
+  <img src="/images/logobarca.png" alt="FC Barcelona Logo" class="login-logo" />
+
+  <form class="login-card" method="post" asp-controller="Home" asp-action="Login">
+    <h1>Sign in</h1>
+    <p>Sign in with your account.</p>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <p class="login-error">@ViewBag.ErrorMessage</p>
+    }
+
+    <div class="login-field">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" autocomplete="username" />
+    </div>
+
+    <div class="login-field">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" autocomplete="current-password" />
+    </div>
+
+    <button type="submit" class="login-submit">Sign in</button>
+
+    <p class="login-register">No account yet? <a asp-controller="Home" asp-action="Register">Register</a></p>
+  </form>
+</body>
+</html>

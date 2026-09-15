@@ -1,8 +1,8 @@
-/* ==========================================================
+/* 
    Typografie-Basis
    Anton            -> grosse Display-Ueberschriften
    Barlow Condensed -> Navigation, Fliesstext, Tabellen
-   ========================================================== */
+    */
 
 :root {
   --font-display: "Anton", "Barlow Condensed", sans-serif;
@@ -57,7 +57,7 @@ h1, h2, h3, h4 {
   text-align: start;
 }
 
-/* ===================== Header / Navigation ===================== */
+/*  Header / Navigation  */
 
 header {
   background-color: var(--navy);
@@ -144,7 +144,7 @@ header nav ul li a.active {
   background-color: var(--gold);
 }
 
-/* ===================== Footer ===================== */
+/*  Footer  */
 
 .footer {
   position: absolute;
@@ -189,7 +189,7 @@ header nav ul li a.active {
   color: rgba(255, 255, 255, 0.4);
 }
 
-/* ===================== Hero ===================== */
+/*  Hero  */
 
 .hero {
   display: flex;
@@ -243,7 +243,7 @@ header nav ul li a.active {
   margin: 0.4rem 0 0;
 }
 
-/* ===================== Startseite: Recently won ===================== */
+/*  Startseite: Recently won  */
 
 .trophies {
   padding: 4rem 2rem;
@@ -307,7 +307,7 @@ header nav ul li a.active {
   }
 }
 
-/* ===================== Squad ===================== */
+/*  Squad  */
 
 .squad {
   padding: 4rem 2rem;
@@ -406,7 +406,7 @@ header nav ul li a.active {
   line-height: 1;
 }
 
-/* ===================== Favourites ===================== */
+/*  Favourites  */
 
 .favourites {
   padding: 4rem 2rem;
@@ -454,7 +454,7 @@ header nav ul li a.active {
   font-size: 0.9rem;
 }
 
-/* ===================== Trophies-Seite ===================== */
+/*  Trophies-Seite  */
 
 .trophies-page {
   padding: 4rem 2rem;
@@ -573,19 +573,122 @@ header nav ul li a.active {
   font-weight: 700;
 }
 
-/* ===================== Responsive ===================== */
+/*  Login  */
 
-@media (max-width: 900px) {
-  .trophy-stat-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  background-image: url("/images/Loginseite/backroundImagesLogin.png");
+  background-size: cover;
+  background-position: center;
+}
 
-  header nav.nav {
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
+.login-logo {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  height: 56px;
+  width: auto;
+}
 
-  header nav ul {
-    gap: 1.5rem;
-  }
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  margin: 2rem;
+  padding: 2.5rem 2.25rem;
+  border-radius: 1rem;
+  background-color: #ffffff;
+  box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.35);
+}
+
+.login-card h1 {
+  font-size: 2rem;
+  color: var(--navy);
+  text-transform: uppercase;
+  margin: 0 0 0.35rem;
+}
+
+.login-card p {
+  margin: 0 0 1.75rem;
+  font-size: 1.05rem;
+  color: var(--muted);
+}
+
+.login-field {
+  margin-bottom: 1.25rem;
+}
+
+.login-field label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--navy);
+  margin-bottom: 0.4rem;
+}
+
+.login-field input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  border: 1px solid #d9dde3;
+  border-radius: 0.5rem;
+  background-color: #f8f9fb;
+  outline: none;
+}
+
+.login-field input:focus {
+  border-color: var(--navy);
+  background-color: #ffffff;
+}
+
+.login-submit {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  margin-top: 0.5rem;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--maroon);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+
+.login-submit:hover {
+  background-color: #931451;
+}
+
+.login-register {
+  margin: 1.25rem 0 0;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.login-register a {
+  color: var(--navy);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.login-register a:hover {
+  text-decoration: underline;
+}
+
+.login-error {
+  margin: -0.75rem 0 1.25rem;
+  padding: 0.65rem 0.9rem;
+  border-radius: 0.5rem;
+  background-color: #fde8ec;
+  color: var(--maroon);
+  font-size: 0.9rem;
+  font-weight: 600;
 }
