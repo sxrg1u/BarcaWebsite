@@ -327,6 +327,15 @@ header nav ul li a.active {
   background-size: cover;
   background-position: center;
   color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.trophy-card:hover,
+.trophy-card:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
 }
 
 .trophy-card h3 {
