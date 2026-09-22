@@ -463,6 +463,102 @@ header nav ul li a.active {
   line-height: 1;
 }
 
+/*  Squad Lineup (steht auf dem Footer)  */
+
+.squad-lineup {
+  --lineup-h: clamp(90px, 15vw, 200px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(0.75rem, 2.5vw, 2.5rem);
+  padding: 0 1rem;
+  margin-top: 2rem;
+  /* clip statt hidden: schneidet nur horizontal, laesst den negativen
+     Bottom-Margin von Gordon vertikal ueberstehen  */
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+/*  Pro Bild:
+    --scale  gleicht die unterschiedlichen Freistellungen aus, sodass jede
+             Figur gleich hoch erscheint (= --lineup-h), egal wie viel
+             Leerraum im PNG steckt
+    --pad-b  transparenter Rand UNTER der Figur im PNG
+    --pad-l/--pad-r  transparenter Rand links/rechts der Figur
+    Die Raender werden per negativem Margin herausgerechnet, damit die
+    Spieler wirklich eng nebeneinander und exakt auf dem Footer stehen.  */
+.squad-lineup img {
+  --scale: 1;
+  --pad-b: 0;
+  --pad-l: 0;
+  --pad-r: 0;
+  --size: calc(var(--lineup-h) * var(--scale));
+  display: block;
+  height: var(--size);
+  width: auto;
+  margin-bottom: calc(var(--size) * var(--pad-b) * -1);
+  margin-left: calc(var(--size) * var(--pad-l) * -1);
+  margin-right: calc(var(--size) * var(--pad-r) * -1);
+  object-fit: contain;
+  object-position: bottom;
+  opacity: 0.5;
+  transition: opacity 180ms ease;
+}
+
+.squad-lineup img:hover {
+  opacity: 0.7;
+}
+
+.squad-lineup .p-yamal {
+  --scale: 1.057;
+  --pad-l: 0.063;
+  --pad-r: 0.084;
+}
+
+.squad-lineup .p-adeyemi {
+  --scale: 1.075;
+  --pad-l: 0.275;
+  --pad-r: 0.262;
+}
+
+.squad-lineup .p-cubarsi {
+  --scale: 1.004;
+  --pad-l: 0.244;
+  --pad-r: 0.244;
+}
+
+.squad-lineup .p-gordon {
+  --scale: 1.738;
+  --pad-b: 0.212;
+  --pad-l: 0.128;
+  --pad-r: 0.072;
+}
+
+.squad-lineup .p-pedri {
+  --scale: 1.069;
+  --pad-b: 0.013;
+  --pad-l: 0.253;
+  --pad-r: 0.246;
+}
+
+.squad-lineup .p-raphinha {
+  --scale: 1.001;
+}
+
+@media (max-width: 700px) {
+  .squad-lineup {
+    --lineup-h: 64px;
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .squad-lineup img {
+    transition: none;
+  }
+}
+
 /*  Favourites  */
 
 .favourites {
