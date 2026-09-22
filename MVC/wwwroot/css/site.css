@@ -473,20 +473,10 @@ header nav ul li a.active {
   gap: clamp(0.75rem, 2.5vw, 2.5rem);
   padding: 0 1rem;
   margin-top: 2rem;
-  /* clip statt hidden: schneidet nur horizontal, laesst den negativen
-     Bottom-Margin von Gordon vertikal ueberstehen  */
   overflow-x: clip;
   overflow-y: visible;
 }
 
-/*  Pro Bild:
-    --scale  gleicht die unterschiedlichen Freistellungen aus, sodass jede
-             Figur gleich hoch erscheint (= --lineup-h), egal wie viel
-             Leerraum im PNG steckt
-    --pad-b  transparenter Rand UNTER der Figur im PNG
-    --pad-l/--pad-r  transparenter Rand links/rechts der Figur
-    Die Raender werden per negativem Margin herausgerechnet, damit die
-    Spieler wirklich eng nebeneinander und exakt auf dem Footer stehen.  */
 .squad-lineup img {
   --scale: 1;
   --pad-b: 0;
@@ -611,6 +601,58 @@ header nav ul li a.active {
 
 .trophies-page {
   padding: 4rem 2rem;
+}
+
+/*  Messi unten links, leicht angewinkelt  */
+
+.trophies-messi-row {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 2rem;
+  margin-top: 2rem;
+  /* zieht Messi ueber die Kante zum Footer, damit die Grenze
+     weiss/navy nicht genau auf Fuesshoehe als harter Schnitt sichtbar
+     ist, sondern unter der Figur verschwindet  */
+  margin-bottom: -2.5rem;
+  position: relative;
+  z-index: 1;
+  /* das gedrehte Bild ragt ueber seine Layout-Box hinaus, darf aber
+     keinen horizontalen Scroll ausloesen  */
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+.trophies-messi {
+  --size: clamp(130px, 18vw, 240px);
+  --tilt: 6deg;
+  display: block;
+  height: var(--size);
+  width: auto;
+  /* transparenter Rand links im PNG wird herausgerechnet, damit Messi
+     buendig am linken Seitenrand steht  */
+  margin-left: calc(var(--size) * -0.041);
+  /* Drehpunkt unten rechts: die Unterkante hebt sich nach links an,
+     nichts rutscht unter den Footer  */
+  transform: rotate(var(--tilt));
+  transform-origin: bottom right;
+  opacity: 0.5;
+  transition: opacity 180ms ease;
+}
+
+.trophies-messi:hover {
+  opacity: 0.7;
+}
+
+@media (max-width: 700px) {
+  .trophies-messi-row {
+    padding: 0 0.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trophies-messi {
+    transition: none;
+  }
 }
 
 .trophies-page h1 {
