@@ -496,7 +496,7 @@ header nav ul li a.active {
 }
 
 .squad-lineup img:hover {
-  opacity: 0.7;
+  opacity: 0.9;
 }
 
 .squad-lineup .p-yamal {
@@ -640,7 +640,7 @@ header nav ul li a.active {
 }
 
 .trophies-messi:hover {
-  opacity: 0.7;
+  opacity: 0.9;
 }
 
 @media (max-width: 700px) {
