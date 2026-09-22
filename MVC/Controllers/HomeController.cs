@@ -19,16 +19,12 @@ namespace MVC.Controllers
 
         public IActionResult Squad()
         {
-            var players = new List<Player>();
-
-            return View(players);
+            return View();
         }
 
         public IActionResult Trophies()
         {
-            var model = new TrophiesViewModel();
-
-            return View(model);
+            return View();
         }
 
         public IActionResult Favourites()
