@@ -1,8 +1,4 @@
-/*
-   Typografie-Basis
-   Anton            -> grosse Display-Ueberschriften
-   Barlow Condensed -> Navigation, Fliesstext, Tabellen
-    */
+/* Anton: Ueberschriften, Barlow Condensed: Text */
 
 @font-face {
   font-family: 'Anton';
@@ -610,16 +606,11 @@ header nav ul li a.active {
   justify-content: flex-start;
   padding: 0 2rem;
   margin-top: 2rem;
-  /* zieht Messi ueber die Kante zum Footer, damit die Grenze
-     weiss/navy nicht genau auf Fuesshoehe als harter Schnitt sichtbar
-     ist, sondern unter der Figur verschwindet  */
+  /* zieht Messi ueber die Footer-Kante */
   margin-bottom: -2.5rem;
   position: relative;
-  /* kein z-index: der Footer steht spaeter im DOM und liegt dadurch
-     ueber Messi, damit die Figur hinter der Footer-Kante verschwindet
-     statt darueber zu ragen  */
-  /* das gedrehte Bild ragt ueber seine Layout-Box hinaus, darf aber
-     keinen horizontalen Scroll ausloesen  */
+  /* kein z-index: Footer liegt im DOM danach und damit darueber */
+  /* kein horizontaler Scroll durch das gedrehte Bild */
   overflow-x: clip;
   overflow-y: visible;
 }
@@ -630,11 +621,9 @@ header nav ul li a.active {
   display: block;
   height: var(--size);
   width: auto;
-  /* transparenter Rand links im PNG wird herausgerechnet, damit Messi
-     buendig am linken Seitenrand steht  */
+  /* gleicht transparenten Rand im PNG aus */
   margin-left: calc(var(--size) * -0.041);
-  /* Drehpunkt unten rechts: die Unterkante hebt sich nach links an,
-     nichts rutscht unter den Footer  */
+  /* Drehpunkt unten rechts */
   transform: rotate(var(--tilt));
   transform-origin: bottom right;
   opacity: 0.5;
