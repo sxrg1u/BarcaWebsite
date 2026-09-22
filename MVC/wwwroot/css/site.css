@@ -615,7 +615,9 @@ header nav ul li a.active {
      ist, sondern unter der Figur verschwindet  */
   margin-bottom: -2.5rem;
   position: relative;
-  z-index: 1;
+  /* kein z-index: der Footer steht spaeter im DOM und liegt dadurch
+     ueber Messi, damit die Figur hinter der Footer-Kante verschwindet
+     statt darueber zu ragen  */
   /* das gedrehte Bild ragt ueber seine Layout-Box hinaus, darf aber
      keinen horizontalen Scroll ausloesen  */
   overflow-x: clip;
