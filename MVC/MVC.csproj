@@ -10,6 +10,10 @@
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MySqlConnector" Version="2.6.2" />
+  </ItemGroup>
+
   <Target Name="KillRunningApp" BeforeTargets="Build" Condition="'$(OS)' == 'Windows_NT'">
     <Exec Command="taskkill /F /IM MVC.exe" ContinueOnError="true" IgnoreExitCode="true" />
   </Target>

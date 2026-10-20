@@ -1,10 +1,11 @@
 @{
     ViewData["Title"] = "Squad";
 }
+@model List<MVC.Models.Player>
 <main>
     <section class="squad">
         <h1>Squad</h1>
-        <p>0 players. Select a row to open the player detail view or fav a player.</p>
+        <p>@Model.Count players. Select a row to open the player detail view or fav a player.</p>
 
         <div class="squad-search">
             <img src="~/images/logobarca.png" alt="FC Barcelona Logo" class="squad-search-logo" />
@@ -25,7 +26,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+                    @foreach (var p in Model)
+                    {
+                        <tr class="squad-row">
+                            <td><img src="@p.ImagePath" alt="@p.Name" class="squad-avatar" /></td>
+                            <td>@p.ShirtNumber</td>
+                            <td class="squad-player-name">@p.Name</td>
+                            <td>@p.Country</td>
+                            <td>@p.Position</td>
+                            <td>@p.Age</td>
+                            <td><span class="squad-fav">&#9734;</span></td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>

@@ -1,6 +1,7 @@
 @{
     ViewData["Title"] = "Trophies";
 }
+@model List<MVC.Models.Trophy>
 <main>
     <section class="trophies-page">
         <h1>Trophies</h1>
@@ -21,7 +22,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+                    @foreach (var t in Model)
+                    {
+                        <tr>
+                            <td>@t.Year</td>
+                            <td>@t.Competition</td>
+                            <td>@t.Coach</td>
+                            <td>@t.Category</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>

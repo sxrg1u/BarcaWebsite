@@ -941,3 +941,12 @@ header nav ul li a.active {
 .notfound-btn:hover {
   background-color: #931451;
 }
+
+.squad-avatar {
+    display: inline-block;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: #d9d9d9;
+    object-fit: cover; 
+}
