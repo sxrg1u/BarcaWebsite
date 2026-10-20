@@ -188,6 +188,29 @@ a.user-name:hover {
   color: var(--gold);
 }
 
+.logout-form {
+  margin: 0;
+}
+
+.logout-btn {
+  padding: 0.35rem 0.9rem;
+  border: 1px solid #ffffff;
+  border-radius: 999px;
+  background: none;
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
 /*  Footer  */
 
 .footer {

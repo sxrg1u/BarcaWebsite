@@ -214,6 +214,14 @@ namespace MVC.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Logout()
+        {
+            // Session leeren, damit niemand mehr eingeloggt ist
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index");
+        }
+
         [HttpGet]
         public IActionResult Register()
         {

@@ -32,6 +32,9 @@
                 @if (currentUser != null)
                 {
                     <span class="user-name" title="@currentUser">@currentUser</span>
+                    <form method="post" asp-controller="Home" asp-action="Logout" class="logout-form">
+                        <button type="submit" class="logout-btn">Logout</button>
+                    </form>
                 }
                 else
                 {
