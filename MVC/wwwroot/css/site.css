@@ -177,18 +177,15 @@ header nav ul li a.active {
   font-weight: 600;
   letter-spacing: 0.03em;
   text-decoration: none;
+  /* Zu lange Namen mit ... abschneiden */
+  max-width: 12rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
-.user-name:hover {
+a.user-name:hover {
   color: var(--gold);
-}
-
-.user-avatar {
-  display: inline-block;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background-color: var(--gold);
 }
 
 /*  Footer  */

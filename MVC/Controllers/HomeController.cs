@@ -206,6 +206,7 @@ namespace MVC.Controllers
             {
                 // UserId merken, damit Favoriten wissen, wer eingeloggt ist
                 HttpContext.Session.SetInt32("UserId", Convert.ToInt32(result));
+                HttpContext.Session.SetString("Username", username);
                 return RedirectToAction("Index");
             }
 
@@ -222,6 +223,13 @@ namespace MVC.Controllers
         [HttpPost]
         public IActionResult Register(string username, string password)
         {
+            // Benutzername darf nicht leer und max. 20 Zeichen lang sein
+            if (string.IsNullOrWhiteSpace(username) || username.Length > 20)
+            {
+                ViewBag.ErrorMessage = "Username must be 1 to 20 characters.";
+                return View();
+            }
+
             using var conn = new MySqlConnection(_connString);
             conn.Open();
 

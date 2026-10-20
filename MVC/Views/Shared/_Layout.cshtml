@@ -28,8 +28,15 @@
                 <li><a asp-controller="Home" asp-action="Favourites" class="@(ViewContext.RouteData.Values["action"]?.ToString() == "Favourites" ? "active" : "")">Favourites</a></li>
             </ul>
             <div class="user">
-                <a asp-controller="Home" asp-action="Login" class="user-name">S. Bolohan</a>
-                <span class="user-avatar"></span>
+                @{ var currentUser = Context.Session.GetString("Username"); }
+                @if (currentUser != null)
+                {
+                    <span class="user-name" title="@currentUser">@currentUser</span>
+                }
+                else
+                {
+                    <a asp-controller="Home" asp-action="Login" class="user-name">Login</a>
+                }
             </div>
         </nav>
     </header>
