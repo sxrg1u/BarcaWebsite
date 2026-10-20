@@ -35,7 +35,14 @@
                             <td>@p.Country</td>
                             <td>@p.Position</td>
                             <td>@p.Age</td>
-                            <td><span class="squad-fav">&#9734;</span></td>
+                            <td>
+                                <form method="post" asp-action="ToggleFavourite">
+                                    <input type="hidden" name="playerId" value="@p.Id" />
+                                    <button type="submit" class="squad-fav @(p.IsFavourite ? "is-fav" : "")">
+                                        @(p.IsFavourite ? "★" : "☆")
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     }
                 </tbody>

@@ -2,12 +2,14 @@
 {
     public class Player
     {
+        public int Id { get; set; }
         public int ShirtNumber { get; set; }
         public string Name { get; set; } = "";
         public string Country { get; set; } = "";
         public string Position { get; set; } = "";
         public DateTime BirthDate { get; set; }
         public string ImagePath { get; set; } = "";
+        public bool IsFavourite { get; set; }
 
         // Alter wird aus dem Geburtsdatum berechnet
         public int Age

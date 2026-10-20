@@ -104,6 +104,9 @@ h1, h2, h3, h4 {
 /*  Header / Navigation  */
 
 header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   background-color: var(--navy);
 }
 
@@ -949,4 +952,67 @@ header nav ul li a.active {
     border-radius: 50%;
     background-color: #d9d9d9;
     object-fit: cover; 
+}
+
+/*  Favoriten-Stern (Squad)  */
+
+button.squad-fav {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+button.squad-fav.is-fav {
+  color: var(--maroon);
+}
+
+/*  Favoriten-Karten  */
+
+.favourites-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 260px;
+  padding: 1.5rem 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 1rem;
+  text-align: center;
+}
+
+.favourites-card-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #d9d9d9;
+}
+
+.favourites-card h3 {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 1.25rem;
+  margin: 0.5rem 0 0;
+}
+
+.favourites-card-pos {
+  color: #6c757d;
+  font-weight: 600;
+}
+
+.favourites-remove {
+  margin-top: auto;
+  padding: 0.4rem 1rem;
+  border: 1px solid var(--maroon);
+  border-radius: 999px;
+  background: none;
+  color: var(--maroon);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.favourites-remove:hover {
+  background-color: var(--maroon);
+  color: #ffffff;
 }
