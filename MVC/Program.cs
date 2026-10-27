@@ -22,6 +22,21 @@ app.UseSession();
 
 app.UseAuthorization();
 
+// Fonts lange cachen: MapStaticAssets schickt sonst "no-cache",
+// dann fragt der Browser bei jedem Seitenwechsel neu und die Schrift flackert
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path.StartsWithSegments("/fonts"))
+    {
+        context.Response.OnStarting(() =>
+        {
+            context.Response.Headers.CacheControl = "public, max-age=31536000, immutable";
+            return Task.CompletedTask;
+        });
+    }
+    await next();
+});
+
 app.MapStaticAssets();
 
 app.MapControllerRoute(
