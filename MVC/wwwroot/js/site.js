@@ -47,8 +47,20 @@ document.querySelectorAll("form[action$='ToggleFavourite']").forEach(form => {
             button.textContent = data.isFavourite ? "★" : "☆";
             button.classList.toggle("is-fav", data.isFavourite);
         } else {
-            // Favourites: Karte entfernen
+            // Favourites: Karte entfernen und Zahl im Banner anpassen
             form.closest(".favourites-card").remove();
+
+            const left = document.querySelectorAll(".favourites-card").length;
+            if (left === 0) {
+                // Letzter Favorit weg -> Seite neu laden, zeigt den leeren Zustand
+                window.location.reload();
+                return;
+            }
+            const count = document.querySelector(".favourites-count");
+            if (count) {
+                count.textContent = left;
+                count.nextSibling.textContent = left === 1 ? " player" : " players";
+            }
         }
     });
 });

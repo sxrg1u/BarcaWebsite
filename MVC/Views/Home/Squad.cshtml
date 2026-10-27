@@ -3,9 +3,20 @@
 }
 @model List<MVC.Models.Player>
 <main>
+    <section class="page-hero">
+        <div class="page-hero-inner">
+            <div class="page-hero-text">
+                <p class="season">Season 2025/26</p>
+                <h1>Squad</h1>
+                <p class="page-hero-sub"><strong>@Model.Count</strong> players</p>
+            </div>
+
+            <img src="~/images/Players/SquadSeite/banner/teamPhoto.webp" class="squad-hero-team" alt="FC Barcelona Teamfoto" />
+        </div>
+    </section>
+
     <section class="squad">
-        <h1>Squad</h1>
-        <p>@Model.Count players. Select a row to open the player detail view or favourite a player.</p>
+        <p>Select a row to open the player detail view or favourite a player.</p>
 
         <div class="squad-search">
             <img src="~/images/logobarca.png" alt="FC Barcelona Logo" class="squad-search-logo" />

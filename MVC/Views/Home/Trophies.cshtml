@@ -2,13 +2,47 @@
     ViewData["Title"] = "Trophies";
 }
 @model List<MVC.Models.Trophy>
+@{
+    // Pokale im Banner: CSS-Klasse, Bild und Wettbewerb (Name wie in der Datenbank)
+    // Reihenfolge = Stapelreihenfolge, der letzte liegt vorne
+    var decoTrophies = new[]
+    {
+        (Css: "deco-supercopa", Image: "SupercopadeEspana.webp", Name: "Supercopa de España"),
+        (Css: "deco-supercup", Image: "UEFASuperCup.webp", Name: "UEFA Super Cup"),
+        (Css: "deco-copa", Image: "CopadelRey.webp", Name: "Copa del Rey"),
+        (Css: "deco-cwc", Image: "FIFAClubWordCup.webp", Name: "FIFA Club World Cup"),
+        (Css: "deco-laliga", Image: "LaLiga.webp", Name: "LaLiga"),
+        (Css: "deco-cl", Image: "championsleague.webp", Name: "UEFA Champions League")
+    };
+}
 <main>
-    <section class="trophies-page">
-        <h1>Trophies</h1>
+    <section class="page-hero">
+        <div class="page-hero-inner">
+            <div class="page-hero-text">
+                <p class="season">@Model.Min(t => t.Year) – @Model.Max(t => t.Year)</p>
+                <h1>Trophies</h1>
+                <p class="page-hero-sub">
+                    <strong>@Model.Count</strong> titles &middot;
+                    <strong>@Model.Select(t => t.Competition).Distinct().Count()</strong> competitions
+                </p>
+            </div>
 
-        <div class="trophy-stat-grid">
+            <!-- Pokale verstreut und gedreht an den Raendern, Name als Tooltip (title) wie bei der Squad-Lineup -->
+            <div class="trophies-deco">
+                @foreach (var d in decoTrophies)
+                {
+                    var count = Model.Count(t => t.Competition == d.Name);
+
+                    <img src="@Url.Content("~/images/trophy/deko/" + d.Image)"
+                         class="deco-item @d.Css"
+                         alt="@d.Name"
+                         title="@d.Name – @count @(count == 1 ? "title" : "titles")" />
+                }
+            </div>
         </div>
+    </section>
 
+    <section class="trophies-page">
         <h2>All Trophies <span class="trophies-since">since 2010</span></h2>
 
         <div class="trophies-table-wrap">

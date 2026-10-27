@@ -149,7 +149,7 @@ namespace MVC.Controllers
             conn.Open();
 
             using var cmd = new MySqlCommand(
-                @"SELECT p.Id, p.Name, p.Position, p.ImagePath
+                @"SELECT p.Id, p.ShirtNumber, p.Name, p.Country, p.Position, p.BirthDate, p.ImagePath
                   FROM Favourites f
                   JOIN Players p ON p.Id = f.PlayerId
                   WHERE f.UserId = @u
@@ -163,9 +163,12 @@ namespace MVC.Controllers
                 players.Add(new Player
                 {
                     Id = reader.GetInt32(0),
-                    Name = reader.GetString(1),
-                    Position = reader.GetString(2),
-                    ImagePath = reader.GetString(3),
+                    ShirtNumber = reader.GetInt32(1),
+                    Name = reader.GetString(2),
+                    Country = reader.GetString(3),
+                    Position = reader.GetString(4),
+                    BirthDate = reader.GetDateTime(5),
+                    ImagePath = reader.GetString(6),
                     IsFavourite = true
                 });
             }
