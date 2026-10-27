@@ -875,11 +875,15 @@ a.user-name:hover {
   background-color: #931451;
 }
 
-.login-register {
+.login-card .login-register {
   margin: 1.25rem 0 0;
   text-align: center;
   font-size: 0.95rem;
   color: var(--muted);
+}
+
+.login-card .login-register + .login-register {
+  margin-top: 0.4rem;
 }
 
 .login-register a {
