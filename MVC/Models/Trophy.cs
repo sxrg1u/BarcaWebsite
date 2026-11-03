@@ -2,6 +2,7 @@
 {
     public class Trophy
     {
+        public int Id { get; set; }
         public int Year { get; set; }
         public string Competition { get; set; } = "";
         public string Coach { get; set; } = "";

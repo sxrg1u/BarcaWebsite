@@ -1,0 +1,61 @@
+@model List<MVC.Models.User>
+@{
+    ViewData["Title"] = "Admin - Users";
+    ViewData["Tab"] = "Users";
+    ViewData["Heading"] = "Users";
+    ViewData["Sub"] = $"<strong>{Model.Count}</strong> registered users";
+    int? currentId = Context.Session.GetInt32("UserId");
+}
+<main>
+    <partial name="_AdminHeader" />
+
+        <div class="admin-toolbar">
+            <p>Give or take admin rights, set a new password or delete accounts. Deleting a user also deletes their favourites.</p>
+        </div>
+
+        <div class="admin-table-wrap">
+            <table class="squad-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Favourites</th>
+                        <th>Registered</th>
+                        <th class="admin-col-actions">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var u in Model)
+                    {
+                        bool isSelf = u.Id == currentId;
+                        <tr class="squad-row">
+                            <td>@u.Id</td>
+                            <td class="squad-player-name">@u.Username@(isSelf ? " (you)" : "")</td>
+                            <td><span class="admin-badge @(u.IsAdmin ? "admin-badge-admin" : "")">@u.Role</span></td>
+                            <td>@u.FavouriteCount</td>
+                            <td>@u.CreatedAt.ToString("dd.MM.yyyy")</td>
+                            <td class="admin-col-actions">
+                                @if (!isSelf)
+                                {
+                                    <form method="post" asp-action="UserToggleRole" asp-route-id="@u.Id" class="admin-inline"
+                                          data-confirm="@(u.IsAdmin ? $"Remove admin rights from {u.Username}?" : $"Make {u.Username} an admin?")">
+                                        <button type="submit" class="admin-btn admin-btn-small">@(u.IsAdmin ? "Remove admin" : "Make admin")</button>
+                                    </form>
+                                }
+                                <a asp-action="UserResetPassword" asp-route-id="@u.Id" class="admin-btn admin-btn-small">Password</a>
+                                @if (!isSelf)
+                                {
+                                    <form method="post" asp-action="UserDelete" asp-route-id="@u.Id" class="admin-inline"
+                                          data-confirm="Delete user @u.Username and all their favourites?">
+                                        <button type="submit" class="admin-btn admin-btn-small admin-btn-danger">Delete</button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>

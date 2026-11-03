@@ -1,0 +1,48 @@
+@model List<MVC.Models.Trophy>
+@{
+    ViewData["Title"] = "Admin - Trophies";
+    ViewData["Tab"] = "Trophies";
+    ViewData["Heading"] = "Trophies";
+    ViewData["Sub"] = $"<strong>{Model.Count}</strong> titles";
+}
+<main>
+    <partial name="_AdminHeader" />
+
+        <div class="admin-toolbar">
+            <p>Add new titles or correct existing entries of the trophy history.</p>
+            <a asp-action="TrophyCreate" class="admin-btn admin-btn-primary">+ New trophy</a>
+        </div>
+
+        <div class="admin-table-wrap">
+            <table class="squad-table">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Competition</th>
+                        <th>Coach</th>
+                        <th>Category</th>
+                        <th class="admin-col-actions">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var t in Model)
+                    {
+                        <tr class="squad-row">
+                            <td>@t.Year</td>
+                            <td class="squad-player-name">@t.Competition</td>
+                            <td>@t.Coach</td>
+                            <td>@t.Category</td>
+                            <td class="admin-col-actions">
+                                <a asp-action="TrophyEdit" asp-route-id="@t.Id" class="admin-btn admin-btn-small">Edit</a>
+                                <form method="post" asp-action="TrophyDelete" asp-route-id="@t.Id" class="admin-inline"
+                                      data-confirm="Delete @t.Competition @t.Year?">
+                                    <button type="submit" class="admin-btn admin-btn-small admin-btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>

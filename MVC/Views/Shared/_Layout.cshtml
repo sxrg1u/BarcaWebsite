@@ -23,10 +23,14 @@
                 FC BARCELONA
             </a>
             <ul class="nav-links">
-                <li><a asp-controller="Home" asp-action="Index" class="@(ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "active" : "")">Home</a></li>
-                <li><a asp-controller="Home" asp-action="Squad" class="@(ViewContext.RouteData.Values["action"]?.ToString() == "Squad" ? "active" : "")">Squad</a></li>
-                <li><a asp-controller="Home" asp-action="Trophies" class="@(ViewContext.RouteData.Values["action"]?.ToString() == "Trophies" ? "active" : "")">Trophies</a></li>
-                <li><a asp-controller="Home" asp-action="Favourites" class="@(ViewContext.RouteData.Values["action"]?.ToString() == "Favourites" ? "active" : "")">Favourites</a></li>
+                <li><a asp-controller="Home" asp-action="Index" class="@((ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["action"]?.ToString() == "Index") ? "active" : "")">Home</a></li>
+                <li><a asp-controller="Home" asp-action="Squad" class="@((ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["action"]?.ToString() == "Squad") ? "active" : "")">Squad</a></li>
+                <li><a asp-controller="Home" asp-action="Trophies" class="@((ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["action"]?.ToString() == "Trophies") ? "active" : "")">Trophies</a></li>
+                <li><a asp-controller="Home" asp-action="Favourites" class="@((ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["action"]?.ToString() == "Favourites") ? "active" : "")">Favourites</a></li>
+                @if (Context.Session.GetString("Role") == "Admin")
+                {
+                    <li><a asp-controller="Admin" asp-action="Players" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Admin" ? "active" : "")">Admin</a></li>
+                }
             </ul>
             <div class="user">
                 @{ var currentUser = Context.Session.GetString("Username"); }

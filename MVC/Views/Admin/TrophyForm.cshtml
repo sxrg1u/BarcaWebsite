@@ -1,0 +1,58 @@
+@model MVC.Models.ViewModels.TrophyFormViewModel
+@{
+    bool isNew = Model.Id == null;
+    ViewData["Title"] = isNew ? "Admin - New trophy" : "Admin - Edit trophy";
+    ViewData["Tab"] = "Trophies";
+    ViewData["Heading"] = isNew ? "New trophy" : "Edit trophy";
+    ViewData["Sub"] = isNew ? "Add a title to the history" : Html.Encode(Model.Competition + " " + Model.Year);
+    var competitions = ViewBag.Competitions as List<string> ?? new List<string>();
+}
+<main>
+    <partial name="_AdminHeader" />
+
+        <form method="post" asp-action="TrophySave" class="admin-form" novalidate>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="admin-form-grid">
+                <div class="login-field">
+                    <label asp-for="Year">Year</label>
+                    <input asp-for="Year" type="number" min="1899" max="2100" />
+                    <span asp-validation-for="Year" class="admin-field-error"></span>
+                </div>
+
+                <div class="login-field">
+                    <label asp-for="Competition">Competition</label>
+                    <input asp-for="Competition" maxlength="100" list="competition-list" />
+                    <datalist id="competition-list">
+                        @foreach (var c in competitions)
+                        {
+                            <option value="@c"></option>
+                        }
+                    </datalist>
+                    <span asp-validation-for="Competition" class="admin-field-error"></span>
+                </div>
+
+                <div class="login-field">
+                    <label asp-for="Coach">Coach</label>
+                    <input asp-for="Coach" maxlength="100" />
+                    <span asp-validation-for="Coach" class="admin-field-error"></span>
+                </div>
+
+                <div class="login-field">
+                    <label asp-for="Category">Category</label>
+                    <select asp-for="Category">
+                        <option value="">- choose -</option>
+                        <option value="National" selected="@(Model.Category == MVC.Models.CategoryEnum.National)">National</option>
+                        <option value="International" selected="@(Model.Category == MVC.Models.CategoryEnum.International)">International</option>
+                    </select>
+                    <span asp-validation-for="Category" class="admin-field-error"></span>
+                </div>
+            </div>
+
+            <div class="admin-form-actions">
+                <button type="submit" class="admin-btn admin-btn-primary">@(isNew ? "Add trophy" : "Save changes")</button>
+                <a asp-action="Trophies" class="admin-btn">Cancel</a>
+            </div>
+        </form>
+    </section>
+</main>

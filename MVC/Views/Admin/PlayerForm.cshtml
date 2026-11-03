@@ -1,0 +1,70 @@
+@model MVC.Models.ViewModels.PlayerFormViewModel
+@{
+    bool isNew = Model.Id == null;
+    ViewData["Title"] = isNew ? "Admin - New player" : "Admin - Edit player";
+    ViewData["Tab"] = "Players";
+    ViewData["Heading"] = isNew ? "New player" : "Edit player";
+    ViewData["Sub"] = isNew ? "Add a new signing to the squad" : Html.Encode(Model.Name);
+}
+<main>
+    <partial name="_AdminHeader" />
+
+        <form method="post" asp-action="PlayerSave" enctype="multipart/form-data" class="admin-form" novalidate>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ImagePath" />
+
+            <div class="admin-form-grid">
+                <div class="login-field">
+                    <label asp-for="Name">Name</label>
+                    <input asp-for="Name" maxlength="100" />
+                    <span asp-validation-for="Name" class="admin-field-error"></span>
+                </div>
+
+                <div class="login-field">
+                    <label asp-for="ShirtNumber">Shirt number</label>
+                    <input asp-for="ShirtNumber" type="number" min="1" max="99" placeholder="e.g. 10" />
+                    <span asp-validation-for="ShirtNumber" class="admin-field-error"></span>
+                </div>
+
+                <div class="login-field">
+                    <label asp-for="Country">Country</label>
+                    <input asp-for="Country" maxlength="50" />
+                    <span asp-validation-for="Country" class="admin-field-error"></span>
+                </div>
+
+                <div class="login-field">
+                    <label asp-for="Position">Position</label>
+                    <select asp-for="Position">
+                        <option value="">- choose -</option>
+                        @foreach (var pos in MVC.Models.ViewModels.PlayerFormViewModel.Positions)
+                        {
+                            <option value="@pos.Code" selected="@(Model.Position == pos.Code)">@pos.Code - @pos.Label</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Position" class="admin-field-error"></span>
+                </div>
+
+                <div class="login-field">
+                    <label asp-for="BirthDate">Birth date</label>
+                    <input asp-for="BirthDate" type="date" value="@(Model.BirthDate?.ToString("yyyy-MM-dd"))" />
+                    <span asp-validation-for="BirthDate" class="admin-field-error"></span>
+                </div>
+
+                <div class="login-field">
+                    <label asp-for="ImageFile">Photo (PNG, JPG or WEBP, max. 2 MB)</label>
+                    <input asp-for="ImageFile" type="file" accept=".png,.jpg,.jpeg,.webp" />
+                    <span asp-validation-for="ImageFile" class="admin-field-error"></span>
+                    @if (!string.IsNullOrEmpty(Model.ImagePath))
+                    {
+                        <span class="admin-hint">Current photo: <img src="@Model.ImagePath" alt="" class="squad-avatar" /> - upload a new file to replace it.</span>
+                    }
+                </div>
+            </div>
+
+            <div class="admin-form-actions">
+                <button type="submit" class="admin-btn admin-btn-primary">@(isNew ? "Add player" : "Save changes")</button>
+                <a asp-action="Players" class="admin-btn">Cancel</a>
+            </div>
+        </form>
+    </section>
+</main>

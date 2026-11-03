@@ -64,3 +64,12 @@ document.querySelectorAll("form[action$='ToggleFavourite']").forEach(form => {
         }
     });
 });
+
+// Admin: Formulare mit data-confirm erst nach Bestaetigung absenden (z.B. Loeschen)
+document.querySelectorAll("form[data-confirm]").forEach(form => {
+    form.addEventListener("submit", event => {
+        if (!confirm(form.dataset.confirm)) {
+            event.preventDefault();
+        }
+    });
+});

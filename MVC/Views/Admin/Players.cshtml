@@ -1,0 +1,52 @@
+@model List<MVC.Models.Player>
+@{
+    ViewData["Title"] = "Admin - Players";
+    ViewData["Tab"] = "Players";
+    ViewData["Heading"] = "Players";
+    ViewData["Sub"] = $"<strong>{Model.Count}</strong> players in the squad";
+}
+<main>
+    <partial name="_AdminHeader" />
+
+        <div class="admin-toolbar">
+            <p>Add new signings, change numbers or positions and remove players who left the club.</p>
+            <a asp-action="PlayerCreate" class="admin-btn admin-btn-primary">+ New player</a>
+        </div>
+
+        <div class="admin-table-wrap">
+            <table class="squad-table">
+                <thead>
+                    <tr>
+                        <th class="squad-col-photo"></th>
+                        <th>No.</th>
+                        <th>Player</th>
+                        <th>Country</th>
+                        <th>Position</th>
+                        <th>Age</th>
+                        <th class="admin-col-actions">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var p in Model)
+                    {
+                        <tr class="squad-row">
+                            <td><img src="@p.ImageUrl" alt="@p.Name" class="squad-avatar" /></td>
+                            <td>@(p.ShirtNumber?.ToString() ?? "-")</td>
+                            <td class="squad-player-name">@p.Name</td>
+                            <td>@p.Country</td>
+                            <td>@p.Position</td>
+                            <td>@p.Age</td>
+                            <td class="admin-col-actions">
+                                <a asp-action="PlayerEdit" asp-route-id="@p.Id" class="admin-btn admin-btn-small">Edit</a>
+                                <form method="post" asp-action="PlayerDelete" asp-route-id="@p.Id" class="admin-inline"
+                                      data-confirm="Remove @p.Name from the squad? Their favourites are removed as well.">
+                                    <button type="submit" class="admin-btn admin-btn-small admin-btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>

@@ -1,8 +1,19 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+// Jedes POST-Formular braucht ein Anti-Forgery-Token (Schutz vor CSRF)
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add(new Microsoft.AspNetCore.Mvc.AutoValidateAntiforgeryTokenAttribute());
+});
 builder.Services.AddSession();
+
+// Datenzugriff (ADO.NET): eine Klasse pro Tabelle, SQL steht nur dort
+builder.Services.AddSingleton<MVC.Data.Database>();
+builder.Services.AddScoped<MVC.Data.UserRepository>();
+builder.Services.AddScoped<MVC.Data.PlayerRepository>();
+builder.Services.AddScoped<MVC.Data.TrophyRepository>();
+builder.Services.AddScoped<MVC.Data.FavouriteRepository>();
 
 var app = builder.Build();
 

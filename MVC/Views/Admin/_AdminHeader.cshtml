@@ -1,0 +1,29 @@
+@* Banner + Tabs + Meldungen fuer alle Admin-Seiten. Model: Titel und Untertitel kommen ueber ViewData *@
+@{
+    string tab = ViewData["Tab"]?.ToString() ?? "";
+}
+<section class="page-hero">
+    <div class="page-hero-inner">
+        <div class="page-hero-text">
+            <p class="season">Administration</p>
+            <h1>@ViewData["Heading"]</h1>
+            <p class="page-hero-sub">@Html.Raw(ViewData["Sub"])</p>
+        </div>
+    </div>
+</section>
+
+<section class="admin">
+    <nav class="admin-tabs">
+        <a asp-controller="Admin" asp-action="Players" class="@(tab == "Players" ? "active" : "")">Players</a>
+        <a asp-controller="Admin" asp-action="Trophies" class="@(tab == "Trophies" ? "active" : "")">Trophies</a>
+        <a asp-controller="Admin" asp-action="Users" class="@(tab == "Users" ? "active" : "")">Users</a>
+    </nav>
+
+    @if (TempData["Message"] != null)
+    {
+        <p class="admin-flash admin-flash-ok">@TempData["Message"]</p>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <p class="admin-flash admin-flash-error">@TempData["Error"]</p>
+    }
