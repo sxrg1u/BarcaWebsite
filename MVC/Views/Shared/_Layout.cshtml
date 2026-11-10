@@ -53,7 +53,7 @@
                 }
                 else
                 {
-                    <a asp-controller="Home" asp-action="Login" class="user-name">Login</a>
+                    <a asp-controller="Home" asp-action="Login" asp-route-returnUrl="@(Context.Request.Path + Context.Request.QueryString)" class="user-name">Login</a>
                 }
             </div>
         </nav>

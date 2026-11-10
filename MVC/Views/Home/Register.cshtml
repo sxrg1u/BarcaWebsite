@@ -16,6 +16,7 @@
     </a>
 
   <form class="login-card" method="post" asp-controller="Home" asp-action="Register">
+    <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
     <h1>Register</h1>
     <p>Create a new account.</p>
 
@@ -41,7 +42,7 @@
 
     <button type="submit" class="login-submit">Register</button>
 
-    <p class="login-register">Already have an account? <a asp-controller="Home" asp-action="Login">Sign in</a></p>
+    <p class="login-register">Already have an account? <a asp-controller="Home" asp-action="Login" asp-route-returnUrl="@ViewBag.ReturnUrl">Sign in</a></p>
     <p class="login-register">Continue with <a asp-controller="Home" asp-action="Index">no account</a></p>
   </form>
 </body>

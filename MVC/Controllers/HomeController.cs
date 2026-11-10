@@ -91,7 +91,7 @@ namespace MVC.Controllers
             int? userId = HttpContext.Session.GetInt32("UserId");
             if (userId == null)
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("Login", new { returnUrl = Request.Path + Request.QueryString });
             }
 
             return View(_players.GetFavourites(userId.Value));
@@ -110,14 +110,16 @@ namespace MVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string? returnUrl = null)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
         [HttpPost]
-        public IActionResult Login(string username, string password)
+        public IActionResult Login(string username, string password, string? returnUrl = null)
         {
+            ViewBag.ReturnUrl = returnUrl;
             var user = _users.GetByUsername(username?.Trim() ?? "");
 
             if (user == null || string.IsNullOrEmpty(password) || !PasswordHasher.Verify(password, user.PasswordHash))
@@ -135,6 +137,19 @@ namespace MVC.Controllers
             // UserId merken, damit Favoriten wissen, wer eingeloggt ist
             HttpContext.Session.SetInt32("UserId", user.Id);
             HttpContext.Session.SetString("Username", user.Username);
+            return RedirectBack(returnUrl);
+        }
+
+        // Zurueck zur Seite, von der aus man auf Login geklickt hat (nur eigene Seiten, nie Login/Register)
+        private IActionResult RedirectBack(string? returnUrl)
+        {
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl)
+                && !returnUrl.StartsWith("/Home/Login", StringComparison.OrdinalIgnoreCase)
+                && !returnUrl.StartsWith("/Home/Register", StringComparison.OrdinalIgnoreCase))
+            {
+                return LocalRedirect(returnUrl);
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -147,14 +162,16 @@ namespace MVC.Controllers
         }
 
         [HttpGet]
-        public IActionResult Register()
+        public IActionResult Register(string? returnUrl = null)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
         [HttpPost]
-        public IActionResult Register(string username, string password)
+        public IActionResult Register(string username, string password, string? confirmPassword, string? returnUrl = null)
         {
+            ViewBag.ReturnUrl = returnUrl;
             username = username?.Trim() ?? "";
 
             // Benutzername darf nicht leer und max. 20 Zeichen lang sein
@@ -170,6 +187,12 @@ namespace MVC.Controllers
                 return View();
             }
 
+            if (password != confirmPassword)
+            {
+                ViewBag.ErrorMessage = "Passwords do not match.";
+                return View();
+            }
+
             if (_users.UsernameExists(username))
             {
                 ViewBag.ErrorMessage = "Username already exists.";
@@ -178,7 +201,13 @@ namespace MVC.Controllers
 
             _users.Create(username, PasswordHasher.Hash(password));
 
-            return RedirectToAction("Login");
+            // Direkt einloggen, damit man sich nach dem Registrieren nicht nochmal anmelden muss
+            var created = _users.GetByUsername(username);
+            if (created == null) return RedirectToAction("Login", new { returnUrl });
+
+            HttpContext.Session.SetInt32("UserId", created.Id);
+            HttpContext.Session.SetString("Username", created.Username);
+            return RedirectBack(returnUrl);
         }
     }
 }
