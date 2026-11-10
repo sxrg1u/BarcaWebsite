@@ -805,8 +805,8 @@ a.user-name:hover {
 
 @media (max-width: 700px) {
   .favourites-hero-img {
-    right: -14%;
-    opacity: 0.45;
+    right: -18%;
+    opacity: 0.35;
   }
 }
 
@@ -1276,11 +1276,13 @@ button.squad-fav.is-fav {
 /*  Favoriten-Karten: Foto oben, Rueckennummer, Stern zum Entfernen  */
 
 .favourites-card {
+  /* Eine Farbe fuer Fade-Ende, Kartenhintergrund und Textbereich-Anfang -> keine sichtbare Kante */
+  --card-bg: #13235e;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   border-radius: 1.25rem;
-  background: linear-gradient(160deg, #13235e 0%, var(--navy) 60%);
+  background-color: var(--card-bg);
   color: #ffffff;
   box-shadow: 0 0.5rem 1.25rem rgba(10, 26, 77, 0.18);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -1316,7 +1318,7 @@ button.squad-fav.is-fav {
   position: absolute;
   inset: auto 0 0;
   height: 45%;
-  background: linear-gradient(to bottom, transparent, #13235e);
+  background: linear-gradient(to bottom, transparent, var(--card-bg));
   pointer-events: none;
 }
 
@@ -1363,7 +1365,10 @@ button.squad-fav.is-fav {
 }
 
 .favourites-card-body {
+  flex: 1;
   padding: 0.25rem 1.25rem 1.4rem;
+  /* Beginnt genau in der Fade-Farbe und wird nach unten dunkler */
+  background: linear-gradient(to bottom, var(--card-bg), var(--navy));
 }
 
 .favourites-card-pos {
@@ -1380,7 +1385,9 @@ button.squad-fav.is-fav {
 
 .favourites-card h3 {
   font-size: 1.75rem;
+  line-height: 1.1;
   text-transform: uppercase;
+  overflow-wrap: anywhere;
   margin: 0.55rem 0 0.25rem;
 }
 
@@ -1388,6 +1395,111 @@ button.squad-fav.is-fav {
   margin: 0;
   color: rgba(255, 255, 255, 0.72);
   font-size: 1rem;
+}
+
+/* Handy: zwei kompakte Karten nebeneinander statt einer bildschirmhohen Karte */
+@media (max-width: 600px) {
+  .favourites {
+    padding: 2rem 1rem 3rem;
+  }
+
+  .favourites-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .favourites-card {
+    border-radius: 1rem;
+  }
+
+  .favourites-card-photo {
+    aspect-ratio: 1 / 1;
+  }
+
+  .favourites-card-number {
+    top: 0.4rem;
+    left: 0.6rem;
+    font-size: 2.1rem;
+  }
+
+  .favourites-card-photo form {
+    top: 0.3rem;
+    right: 0.3rem;
+  }
+
+  .favourites-card-body {
+    padding: 0.1rem 0.75rem 0.9rem;
+  }
+
+  .favourites-card-pos {
+    font-size: 0.75rem;
+    padding: 0.05rem 0.5rem;
+  }
+
+  .favourites-card h3 {
+    font-size: 1.15rem;
+    margin: 0.4rem 0 0.15rem;
+  }
+
+  .favourites-card-meta {
+    font-size: 0.9rem;
+    line-height: 1.3;
+  }
+
+  /* "Add more players" als schmale Leiste ueber die ganze Breite */
+  .favourites-more {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    min-height: 0;
+    padding: 1rem;
+    gap: 0.75rem;
+    border-radius: 1rem;
+  }
+
+  .favourites-more-plus {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.6rem;
+    flex-shrink: 0;
+  }
+
+  .favourites-more h3 {
+    font-size: 1.05rem;
+    margin-right: auto;
+  }
+
+  /* Ungerade Anzahl Favoriten: Karte fuellt die freie Zelle neben dem letzten Spieler */
+  .favourites-more:nth-child(even) {
+    grid-column: auto;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .favourites-more:nth-child(even) h3 {
+    margin-right: 0;
+  }
+
+  .favourites-more-btn {
+    padding: 0.55rem 1rem;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  .favourites-empty {
+    padding: 2.5rem 1.25rem;
+  }
+}
+
+/* Touch-Geraete: kein Hover-Anheben, das sonst nach dem Antippen haengen bleibt */
+@media (hover: none) {
+  .favourites-card:hover {
+    transform: none;
+  }
+
+  .favourites-card:hover .favourites-card-photo img {
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

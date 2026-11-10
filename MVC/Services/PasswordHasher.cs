@@ -31,13 +31,22 @@ namespace MVC.Services
             }
 
             string[] parts = stored.Split('.');
-            if (parts.Length != 4 || !int.TryParse(parts[1], out int iterations)) return false;
+            if (parts.Length != 4 || !int.TryParse(parts[1], out int iterations) || iterations <= 0) return false;
 
-            byte[] salt = Convert.FromBase64String(parts[2]);
-            byte[] expected = Convert.FromBase64String(parts[3]);
-            byte[] actual = Rfc2898DeriveBytes.Pbkdf2(password, salt, iterations, HashAlgorithmName.SHA256, expected.Length);
+            // Kaputter Eintrag in der DB soll den Login nicht mit einem Fehler 500 abbrechen
+            try
+            {
+                byte[] salt = Convert.FromBase64String(parts[2]);
+                byte[] expected = Convert.FromBase64String(parts[3]);
+                if (expected.Length == 0) return false;
 
-            return CryptographicOperations.FixedTimeEquals(actual, expected);
+                byte[] actual = Rfc2898DeriveBytes.Pbkdf2(password, salt, iterations, HashAlgorithmName.SHA256, expected.Length);
+                return CryptographicOperations.FixedTimeEquals(actual, expected);
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
         }
     }
 }

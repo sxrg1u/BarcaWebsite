@@ -135,7 +135,6 @@ namespace MVC.Controllers
             // UserId merken, damit Favoriten wissen, wer eingeloggt ist
             HttpContext.Session.SetInt32("UserId", user.Id);
             HttpContext.Session.SetString("Username", user.Username);
-            HttpContext.Session.SetString("Role", user.Role);
             return RedirectToAction("Index");
         }
 

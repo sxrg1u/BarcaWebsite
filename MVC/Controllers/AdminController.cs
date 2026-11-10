@@ -13,6 +13,7 @@ namespace MVC.Controllers
     {
         private static readonly string[] AllowedImageTypes = { ".png", ".jpg", ".jpeg", ".webp" };
         private const long MaxImageBytes = 2 * 1024 * 1024;
+        private const string UploadUrlPrefix = "/images/Players/ProfilPhotos/";
 
         private readonly UserRepository _users;
         private readonly PlayerRepository _players;
@@ -68,14 +69,16 @@ namespace MVC.Controllers
         public IActionResult PlayerSave(PlayerFormViewModel model)
         {
             // Beim Bearbeiten muss der Spieler existieren
-            if (model.Id != null && _players.GetById(model.Id.Value) == null) return NotFound();
+            var existing = model.Id != null ? _players.GetById(model.Id.Value) : null;
+            if (model.Id != null && existing == null) return NotFound();
 
             if (model.BirthDate != null && model.BirthDate.Value.Date > DateTime.Today)
             {
                 ModelState.AddModelError(nameof(model.BirthDate), "Birth date cannot be in the future.");
             }
 
-            if (model.Position != "" && !PlayerFormViewModel.Positions.Any(x => x.Code == model.Position))
+            // Leere Auswahl meldet schon [Required], hier nur ungueltige Codes abfangen
+            if (!string.IsNullOrEmpty(model.Position) && !PlayerFormViewModel.Positions.Any(x => x.Code == model.Position))
             {
                 ModelState.AddModelError(nameof(model.Position), "Please choose a position.");
             }
@@ -100,6 +103,9 @@ namespace MVC.Controllers
                 return View("PlayerForm", model);
             }
 
+            // Bisheriges Foto aus der DB nehmen, nicht aus dem versteckten Formularfeld
+            string? oldImagePath = existing?.ImagePath;
+
             var player = new Player
             {
                 Id = model.Id ?? 0,
@@ -108,7 +114,7 @@ namespace MVC.Controllers
                 Country = model.Country.Trim(),
                 Position = model.Position,
                 BirthDate = model.BirthDate!.Value,
-                ImagePath = model.ImagePath
+                ImagePath = oldImagePath
             };
 
             if (model.ImageFile != null && model.ImageFile.Length > 0)
@@ -116,16 +122,28 @@ namespace MVC.Controllers
                 player.ImagePath = SaveImage(model.ImageFile, player.Name);
             }
 
-            if (model.Id == null)
+            try
             {
-                _players.Create(player);
-                TempData["Message"] = $"{player.Name} was added to the squad.";
+                if (model.Id == null)
+                {
+                    _players.Create(player);
+                    TempData["Message"] = $"{player.Name} was added to the squad.";
+                }
+                else
+                {
+                    _players.Update(player);
+                    TempData["Message"] = $"{player.Name} was updated.";
+                }
             }
-            else
+            catch
             {
-                _players.Update(player);
-                TempData["Message"] = $"{player.Name} was updated.";
+                // Speichern fehlgeschlagen -> soeben hochgeladenes Foto wieder entfernen
+                if (player.ImagePath != oldImagePath) DeleteUploadedImage(player.ImagePath);
+                throw;
             }
+
+            // Altes Foto wurde ersetzt -> Datei loeschen
+            if (player.ImagePath != oldImagePath) DeleteUploadedImage(oldImagePath);
 
             return RedirectToAction("Players");
         }
@@ -137,6 +155,7 @@ namespace MVC.Controllers
             if (p == null) return NotFound();
 
             _players.Delete(id);
+            DeleteUploadedImage(p.ImagePath);
             TempData["Message"] = $"{p.Name} was removed from the squad.";
             return RedirectToAction("Players");
         }
@@ -318,7 +337,22 @@ namespace MVC.Controllers
             using var stream = System.IO.File.Create(Path.Combine(folder, fileName));
             file.CopyTo(stream);
 
-            return "/images/Players/ProfilPhotos/" + fileName;
+            return UploadUrlPrefix + fileName;
+        }
+
+        // Loescht ein Foto, das ueber das Admin-Formular hochgeladen wurde (Name-<Guid>.ext).
+        // Mitgelieferte Fotos (z.B. "DaniOlmo.png") werden nie geloescht.
+        private void DeleteUploadedImage(string? imagePath)
+        {
+            if (string.IsNullOrEmpty(imagePath) || !imagePath.StartsWith(UploadUrlPrefix)) return;
+
+            string fileName = Path.GetFileName(imagePath);
+            string stem = Path.GetFileNameWithoutExtension(fileName);
+            int dash = stem.LastIndexOf('-');
+            if (dash < 0 || !Guid.TryParseExact(stem[(dash + 1)..], "N", out _)) return;
+
+            string fullPath = Path.Combine(_env.WebRootPath, "images", "Players", "ProfilPhotos", fileName);
+            if (System.IO.File.Exists(fullPath)) System.IO.File.Delete(fullPath);
         }
     }
 }

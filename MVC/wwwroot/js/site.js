@@ -39,6 +39,12 @@ document.querySelectorAll("form[action$='ToggleFavourite']").forEach(form => {
             return;
         }
 
+        // Anderer Fehler (z.B. Spieler wurde inzwischen geloescht) -> Seite neu laden, zeigt den aktuellen Stand
+        if (!response.ok) {
+            window.location.reload();
+            return;
+        }
+
         const data = await response.json();
         const button = form.querySelector("button");
 
