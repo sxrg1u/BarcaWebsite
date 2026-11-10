@@ -769,6 +769,59 @@ a.user-name:hover {
   color: #ffffff;
 }
 
+/* Knopf "Save as image": Favoriten als Story-Bild herunterladen */
+.favourites-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.25rem;
+}
+
+.favourites-share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.3rem;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--navy);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.favourites-share-btn:hover {
+  background-color: var(--maroon);
+}
+
+.favourites-share-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.favourites-share-btn svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 600px) {
+  .favourites-actions {
+    justify-content: stretch;
+  }
+
+  .favourites-share-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* Leerer Zustand */
 .favourites-empty {
   display: flex;

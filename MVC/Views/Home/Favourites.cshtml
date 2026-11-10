@@ -33,10 +33,17 @@
         }
         else
         {
+            <div class="favourites-actions">
+                <button type="button" class="favourites-share-btn" data-username="@Context.Session.GetString("Username")">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 17v2.5A1.5 1.5 0 0 0 5.5 21h13a1.5 1.5 0 0 0 1.5-1.5V17" /></svg>
+                    Save as image
+                </button>
+            </div>
+
             <div class="favourites-grid">
                 @foreach (var p in Model)
                 {
-                    <article class="favourites-card">
+                    <article class="favourites-card" data-name="@p.Name" data-number="@p.ShirtNumber" data-pos="@p.Position" data-img="@p.ImageUrl">
                         <div class="favourites-card-photo">
                             <img src="@p.ImageUrl" alt="@p.Name" loading="lazy" />
                             <span class="favourites-card-number">@p.ShirtNumber</span>
