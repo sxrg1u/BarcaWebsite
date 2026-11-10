@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MVC.Data;
 using MVC.Models;
+using MVC.Models.ViewModels;
 using MVC.Services;
 using System.Diagnostics;
 
@@ -14,14 +15,17 @@ namespace MVC.Controllers
         private readonly PlayerRepository _players;
         private readonly TrophyRepository _trophies;
         private readonly FavouriteRepository _favourites;
+        private readonly LineupRepository _lineups;
 
         public HomeController(UserRepository users, PlayerRepository players,
-                              TrophyRepository trophies, FavouriteRepository favourites)
+                              TrophyRepository trophies, FavouriteRepository favourites,
+                              LineupRepository lineups)
         {
             _users = users;
             _players = players;
             _trophies = trophies;
             _favourites = favourites;
+            _lineups = lineups;
         }
 
         public IActionResult Index()
@@ -79,6 +83,90 @@ namespace MVC.Controllers
 
             // Zurueck auf die Seite, von der geklickt wurde
             return RedirectToAction(returnTo == "Favourites" ? "Favourites" : "Squad");
+        }
+
+        // Aufstellung bauen: jeder darf, gespeichert wird nur fuer eingeloggte User
+        // id = gespeicherte Aufstellung laden, ohne id = neue Aufstellung bauen
+        public IActionResult Lineup(int? id)
+        {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            var model = new LineupPageViewModel { Players = _players.GetAll() };
+
+            if (userId != null)
+            {
+                model.SavedLineups = _lineups.GetAll(userId.Value);
+                if (id != null)
+                {
+                    model.Current = _lineups.Get(id.Value, userId.Value);
+                    // Fremde oder geloeschte Aufstellung -> einfach eine neue anfangen
+                    if (model.Current == null) return RedirectToAction("Lineup", new { id = (int?)null });
+                }
+            }
+
+            return View(model);
+        }
+
+        // id = 0 -> neu anlegen, sonst ueberschreiben. slots: 20 Eintraege (0-10 Startelf, 11-19 Bank), 0 = leer.
+        [HttpPost]
+        public IActionResult SaveLineup(int id, string? name, string formation, int[] slots, int? captainId)
+        {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null) return Unauthorized();
+
+            name = name?.Trim() ?? "";
+            if (name.Length == 0 || name.Length > Models.Lineup.NameMaxLength)
+            {
+                return BadRequest(new { error = $"Name must be 1 to {Models.Lineup.NameMaxLength} characters." });
+            }
+
+            if (!Models.Lineup.Formations.Contains(formation) || slots == null || slots.Length > Models.Lineup.SlotCount)
+            {
+                return BadRequest(new { error = "Invalid lineup." });
+            }
+
+            if (id == 0 && _lineups.Count(userId.Value) >= Models.Lineup.MaxPerUser)
+            {
+                return BadRequest(new { error = $"You can save up to {Models.Lineup.MaxPerUser} lineups. Delete one first." });
+            }
+
+            var validIds = _players.GetAll().Select(p => p.Id).ToHashSet();
+            var lineup = new Lineup { Id = id, Name = name, Formation = formation };
+
+            for (int slot = 0; slot < slots.Length; slot++)
+            {
+                int playerId = slots[slot];
+                if (playerId == 0) continue;
+
+                // Unbekannter Spieler oder doppelt aufgestellt -> ungueltig
+                if (!validIds.Contains(playerId) || lineup.Slots.ContainsValue(playerId))
+                {
+                    return BadRequest(new { error = "Invalid lineup." });
+                }
+                lineup.Slots[slot] = playerId;
+            }
+
+            // Kapitaen muss in der Startelf stehen
+            if (captainId != null && lineup.Slots.Any(s => s.Key < Models.Lineup.StarterCount && s.Value == captainId))
+            {
+                lineup.CaptainId = captainId;
+            }
+
+            int? savedId = _lineups.Save(userId.Value, lineup);
+            if (savedId == null) return NotFound(new { error = "This lineup no longer exists." });
+
+            return Json(new { id = savedId });
+        }
+
+        [HttpPost]
+        public IActionResult DeleteLineup(int id, int? currentId)
+        {
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            if (userId == null) return RedirectToAction("Login");
+
+            _lineups.Delete(id, userId.Value);
+
+            // Wurde eine andere Aufstellung geloescht, bleibt die aktuelle offen
+            return RedirectToAction("Lineup", new { id = currentId == id ? null : currentId });
         }
 
         public IActionResult Trophies()

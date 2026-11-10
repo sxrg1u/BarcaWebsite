@@ -1,0 +1,192 @@
+@{
+    ViewData["Title"] = "Lineup";
+    var current = Model.Current;
+    bool loggedIn = Context.Session.GetInt32("UserId") != null;
+
+    // Slots der geladenen Aufstellung als Liste mit 20 Eintraegen (0 = leer) an JavaScript uebergeben
+    var slotIds = new int[MVC.Models.Lineup.SlotCount];
+    if (current != null)
+    {
+        foreach (var (slot, playerId) in current.Slots)
+        {
+            if (slot >= 0 && slot < slotIds.Length) slotIds[slot] = playerId;
+        }
+    }
+}
+@model MVC.Models.ViewModels.LineupPageViewModel
+<main>
+    <section class="page-hero">
+        <div class="page-hero-inner">
+            <div class="page-hero-text">
+                <p class="season">Season 2026/27</p>
+                <h1>Lineup</h1>
+                <p class="page-hero-sub">Pick a system and build <strong>your XI</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="lineup"
+             data-id="@(current?.Id ?? 0)"
+             data-formation="@(current?.Formation ?? "4-3-3")"
+             data-captain="@(current?.CaptainId)"
+             data-slots="@string.Join(",", slotIds)"
+             data-logged-in="@(loggedIn ? "true" : "false")"
+             data-username="@Context.Session.GetString("Username")">
+
+        <div class="lu-toolbar">
+            @if (loggedIn)
+            {
+                <label class="lu-field lu-field-name">
+                    <span>@(current == null ? "New lineup" : "Lineup name")</span>
+                    <input type="text" class="lu-name" maxlength="@MVC.Models.Lineup.NameMaxLength"
+                           placeholder="e.g. Clásico XI" value="@current?.Name" />
+                </label>
+            }
+
+            <label class="lu-field">
+                <span>System</span>
+                <select class="lu-formation">
+                    @foreach (var f in MVC.Models.Lineup.Formations)
+                    {
+                        <option value="@f">@f</option>
+                    }
+                </select>
+            </label>
+
+            <label class="lu-field">
+                <span>Captain</span>
+                <select class="lu-captain">
+                    <option value="">-</option>
+                </select>
+            </label>
+
+            <div class="lu-actions">
+                <button type="button" class="lu-btn lu-btn-ghost lu-reset">Clear</button>
+                <button type="button" class="lu-btn lu-btn-ghost lu-image">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0-4.5-4.5M12 15l4.5-4.5M4 17v2.5A1.5 1.5 0 0 0 5.5 21h13a1.5 1.5 0 0 0 1.5-1.5V17" /></svg>
+                    Save as image
+                </button>
+                @if (loggedIn)
+                {
+                    @if (current != null)
+                    {
+                        <button type="button" class="lu-btn lu-btn-ghost lu-save-new">Save as new</button>
+                    }
+                    <form method="post" asp-action="SaveLineup" class="lu-save-form">
+                        <button type="submit" class="lu-btn lu-save">@(current == null ? "Save lineup" : "Save changes")</button>
+                    </form>
+                }
+                else
+                {
+                    <a asp-action="Login" asp-route-returnUrl="/Home/Lineup" class="lu-btn lu-save">Log in to save</a>
+                }
+            </div>
+        </div>
+
+        <p class="lu-status" role="status" aria-live="polite"></p>
+
+        <div class="lu-layout">
+            <div class="lu-board">
+                <div class="lu-pitch">
+                    <!-- Spielfeld-Linien -->
+                    <svg class="lu-pitch-lines" viewBox="0 0 100 140" preserveAspectRatio="none" aria-hidden="true">
+                        <rect x="3" y="3" width="94" height="134" />
+                        <line x1="3" y1="70" x2="97" y2="70" />
+                        <circle cx="50" cy="70" r="11" />
+                        <rect x="24" y="3" width="52" height="20" />
+                        <rect x="38" y="3" width="24" height="7" />
+                        <rect x="24" y="117" width="52" height="20" />
+                        <rect x="38" y="130" width="24" height="7" />
+                    </svg>
+                    <!-- Slots werden von lineup.js je nach System gesetzt -->
+                </div>
+
+                <div class="lu-bench-wrap">
+                    <h2 class="lu-bench-title">Bench</h2>
+                    <div class="lu-bench"></div>
+                </div>
+            </div>
+
+            <aside class="lu-pool">
+                <input type="text" class="lu-search" placeholder="Search player ..." />
+                <div class="lu-filters" role="group" aria-label="Filter by position">
+                    <button type="button" class="lu-filter is-active" data-group="ALL">All</button>
+                    <button type="button" class="lu-filter" data-group="GK">GK</button>
+                    <button type="button" class="lu-filter" data-group="DEF">DEF</button>
+                    <button type="button" class="lu-filter" data-group="MID">MID</button>
+                    <button type="button" class="lu-filter" data-group="FWD">FWD</button>
+                </div>
+                <p class="lu-hint">Drag a player onto the pitch or bench &ndash; or tap a player, then tap a spot.</p>
+
+                <ul class="lu-list">
+                    @foreach (var p in Model.Players)
+                    {
+                        <li>
+                            <button type="button" class="lu-player"
+                                    data-id="@p.Id" data-name="@p.Name" data-number="@p.ShirtNumber"
+                                    data-pos="@p.Position" data-img="@p.ImageUrl">
+                                <img src="@p.ImageUrl" alt="" loading="lazy" />
+                                <span class="lu-player-no">@p.ShirtNumber</span>
+                                <span class="lu-player-name">@p.Name</span>
+                                <span class="lu-player-pos">@p.Position</span>
+                            </button>
+                        </li>
+                    }
+                </ul>
+            </aside>
+        </div>
+
+        <!-- Gespeicherte Aufstellungen -->
+        <div class="lu-saved">
+            <div class="lu-saved-head">
+                <h2>My lineups</h2>
+                @if (loggedIn)
+                {
+                    <span class="lu-saved-count">@Model.SavedLineups.Count / @MVC.Models.Lineup.MaxPerUser</span>
+                    <a href="@Url.Action("Lineup", new { id = (int?)null, @new = 1 })" class="lu-btn lu-btn-ghost lu-new">+ New lineup</a>
+                }
+            </div>
+
+            @if (!loggedIn)
+            {
+                <p class="lu-saved-empty">
+                    <a asp-action="Login" asp-route-returnUrl="/Home/Lineup">Log in</a> to save your lineups with a name and open them again later.
+                </p>
+            }
+            else if (Model.SavedLineups.Count == 0)
+            {
+                <p class="lu-saved-empty">No saved lineups yet. Give your lineup a name above and press <strong>Save lineup</strong>.</p>
+            }
+            else
+            {
+                <div class="lu-saved-grid">
+                    @foreach (var l in Model.SavedLineups)
+                    {
+                        bool active = current?.Id == l.Id;
+                        <article class="lu-saved-card @(active ? "is-active" : "")">
+                            <a asp-action="Lineup" asp-route-id="@l.Id" class="lu-saved-open" aria-current="@(active ? "true" : null)">
+                                <span class="lu-saved-formation">@l.Formation</span>
+                                <h3>@l.Name</h3>
+                                <p>@l.StarterPlayers/11 players &middot; @l.UpdatedAt.ToString("dd.MM.yyyy HH:mm")</p>
+                                @if (active)
+                                {
+                                    <span class="lu-saved-badge">Open</span>
+                                }
+                            </a>
+                            <form method="post" asp-action="DeleteLineup" class="lu-saved-delete"
+                                  data-confirm="Delete the lineup &quot;@l.Name&quot;?">
+                                <input type="hidden" name="id" value="@l.Id" />
+                                <input type="hidden" name="currentId" value="@current?.Id" />
+                                <button type="submit" title="Delete" aria-label="Delete @l.Name">&times;</button>
+                            </form>
+                        </article>
+                    }
+                </div>
+            }
+        </div>
+    </section>
+</main>
+
+@section Scripts {
+    <script src="~/js/lineup.js" asp-append-version="true"></script>
+}

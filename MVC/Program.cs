@@ -14,6 +14,7 @@ builder.Services.AddScoped<MVC.Data.UserRepository>();
 builder.Services.AddScoped<MVC.Data.PlayerRepository>();
 builder.Services.AddScoped<MVC.Data.TrophyRepository>();
 builder.Services.AddScoped<MVC.Data.FavouriteRepository>();
+builder.Services.AddScoped<MVC.Data.LineupRepository>();
 
 var app = builder.Build();
 
